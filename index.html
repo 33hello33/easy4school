@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easy4School - Phần mềm quản lý trường học thông minh</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --secondary: #10B981;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --accent: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #fff;
+        }
+
+        /* Header */
+        header {
+            background: #fff;
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo span { color: var(--accent); }
+
+        .btn-zalo-top {
+            background: var(--primary);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 5% 4rem;
+            background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero h1 span { color: var(--primary); }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #4b5563;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .btn-main { background: var(--primary); color: white; }
+        .btn-sub { background: var(--secondary); color: white; }
+        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
+
+        /* Intro & Mission */
+        .section { padding: 5rem 5%; }
+        .text-center { text-align: center; }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .mission-card {
+            padding: 2rem;
+            background: var(--light);
+            border-radius: 12px;
+            border-bottom: 4px solid var(--primary);
+        }
+
+        /* Features */
+        .features { background: #f3f4f6; }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .feature-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            display: flex;
+            gap: 1rem;
+            transition: 0.3s;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+        .feature-item:hover { transform: scale(1.02); }
+
+        .feature-item i {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-top: 5px;
+        }
+
+        .feature-item h3 { margin-bottom: 0.5rem; font-size: 1.1rem; }
+
+        /* Zalo Floating Button */
+        .zalo-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #0068ff;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 1000;
+            text-decoration: none;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .contact-info { margin: 1.5rem 0; font-size: 1.2rem; }
+        .contact-info a { color: var(--accent); text-decoration: none; font-weight: bold; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .cta-group { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">EASY<span>4SCHOOL</span></div>
+        <a href="https://zalo.me/0934016656" class="btn-zalo-top"><i class="fab fa-whatsapp"></i> Tư vấn ngay</a>
+    </header>
+
+    <section class="hero">
+        <h1>Easy4School – Giải Pháp Quản Lý Trường Học <span>Thông Minh & Tiết Kiệm</span></h1>
+        <p>Ra đời với sứ mệnh giúp chủ trường Mầm non, Trung tâm Anh ngữ tối ưu vận hành, tăng hiệu quả quản lý với chi phí thấp nhất thị trường.</p>
+        <div class="cta-group">
+            <a href="#contact" class="btn btn-main">Nhận Demo Miễn Phí</a>
+            <a href="https://zalo.me/0934016656" class="btn btn-sub">Liên hệ Zalo: 0934 016 656</a>
+        </div>
+    </section>
+
+    <section class="section section-intro">
+        <div class="text-center">
+            <h2 style="font-size: 2rem;">Thiết kế riêng cho từng ngôi trường</h2>
+            <p style="color: #666; margin-top: 1rem;">Chúng tôi hiểu mỗi ngôi trường là duy nhất. Phần mềm được tùy chỉnh để khớp hoàn toàn với quy trình của bạn.</p>
+        </div>
+        <div class="mission-grid">
+            <div class="mission-card text-center">
+                <i class="fas fa-clock-rotate-left fa-3x" style="color: var(--primary);"></i>
+                <h3 style="margin: 1rem 0;">Tiết kiệm thời gian</h3>
+                <p>Tự động hóa 80% công việc thủ công hàng ngày của quản lý và giáo viên.</p>
+            </div>
+            <div class="mission-card text-center">
+                <i class="fas fa-hand-holding-dollar fa-3x" style="color: var(--primary);"></i>
+                <h3 style="margin: 1rem 0;">Chi phí rẻ nhất</h3>
+                <p>Giải pháp tối ưu ngân sách, phù hợp cả với những trung tâm nhỏ mới khởi nghiệp.</p>
+            </div>
+            <div class="mission-card text-center">
+                <i class="fas fa-chart-line fa-3x" style="color: var(--primary);"></i>
+                <h3 style="margin: 1rem 0;">Tăng hiệu quả</h3>
+                <p>Báo cáo trực quan giúp bạn nắm bắt tình hình tài chính và đào tạo trong 1 giây.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section features">
+        <div class="text-center">
+            <h2 style="font-size: 2rem;">Tính năng mạnh mẽ - Vận hành trơn tru</h2>
+        </div>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <i class="fas fa-user-graduate"></i>
+                <div>
+                    <h3>Quản lý học sinh & lớp học</h3>
+                    <p>Điểm danh, sắp lịch học, quản lý hồ sơ học viên chi tiết.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <div>
+                    <h3>Quản lý học phí & công nợ</h3>
+                    <p>Theo dõi học phí, báo nợ tự động, minh bạch mọi khoản thu.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-print"></i>
+                <div>
+                    <h3>Xuất phiếu thu 1 chạm</h3>
+                    <p>In trực tiếp hoặc gửi online qua Zalo cho phụ huynh chuyên nghiệp.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-boxes-stacked"></i>
+                <div>
+                    <h3>Quản lý bán hàng - Kho</h3>
+                    <p>Theo dõi nhập xuất tồn đồng phục, giáo trình, đồ dùng học tập.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-comment-dots"></i>
+                <div>
+                    <h3>Tương tác phụ huynh</h3>
+                    <p>Giao tiếp mọi lúc mọi nơi, tăng sự gắn kết giữa nhà trường và gia đình.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-pie-chart"></i>
+                <div>
+                    <h3>Báo cáo doanh thu & lợi nhuận</h3>
+                    <p>Tổng hợp số liệu tài chính tự động, chính xác tuyệt đối.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section text-center" id="contact">
+        <h2 style="font-size: 2.2rem; margin-bottom: 1rem;">Bắt đầu số hóa trường học của bạn ngay!</h2>
+        <p>Liên hệ để được tư vấn và trải nghiệm bản Demo dành riêng cho bạn.</p>
+        <div class="contact-info">
+            Zalo hỗ trợ: <a href="https://zalo.me/0934016656">0934 016 656</a>
+        </div>
+        <a href="https://zalo.me/0934016656" class="btn btn-main" style="display: inline-block;">Đăng ký Demo ngay</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Easy4School - Giải pháp quản lý trường học toàn diện</p>
+        <p style="font-size: 0.9rem; margin-top: 0.5rem;">Dễ dàng sử dụng - Tiết kiệm chi phí - Thiết kế riêng biệt</p>
+    </footer>
+
+    <a href="https://zalo.me/0934016656" class="zalo-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+</body>
+</html>
