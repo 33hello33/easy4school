@@ -6,7 +6,7 @@
     <title>Easy4School - Phần mềm quản lý trường học thông minh</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
+       <style>
         :root {
             --primary: #3b82f6;
             --secondary: #10B981;
@@ -28,29 +28,8 @@
             background-color: #fff;
         }
 
-
-
-/* Căn chỉnh khối logo để ảnh và chữ nằm trên một hàng */
-.logo {
-    display: flex;
-    align-items: center; /* Căn giữa theo chiều dọc */
-    gap: 10px;           /* Khoảng cách giữa ảnh và chữ */
-    font-weight: bold;
-    font-size: 24px;     /* Tùy chỉnh kích thước chữ của bạn */
-}
-
-/* Tùy chỉnh kích thước ảnh logo */
-.logo-img {
-    height: 40px;        /* Điều chỉnh chiều cao khớp với cỡ chữ */
-    width: auto;         /* Giữ nguyên tỉ lệ ảnh */
-    object-fit: contain;
-    border-radius: 4px;  /* Bo góc nhẹ nếu muốn */
-}
-
-.logo span { color: var(--accent); }
-        
-/* Đảm bảo header dàn hàng ngang */
-header {
+        /* Header */
+        header {
             background: #fff;
             padding: 1rem 5%;
             position: fixed;
@@ -61,7 +40,15 @@ header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-        } */
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo span { color: var(--accent); }
 
         .btn-zalo-top {
             background: var(--primary);
@@ -133,7 +120,7 @@ header {
 
         /* Features */
         .features { background: #f3f4f6; }
-        
+
         .feature-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
