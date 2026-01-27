@@ -49,7 +49,15 @@
         }
 
         .logo span { color: var(--accent); }
-
+           
+/* Tùy chỉnh kích thước ảnh logo */
+.logo-img {
+    height: 40px;        /* Điều chỉnh chiều cao khớp với cỡ chữ */
+    width: auto;         /* Giữ nguyên tỉ lệ ảnh */
+    object-fit: contain;
+    border-radius: 4px;  /* Bo góc nhẹ nếu muốn */
+}
+           
         .btn-zalo-top {
             background: var(--primary);
             color: white;
@@ -196,7 +204,7 @@
 
     <header>
     <div class="logo">
-        <img src="easy4school.webp" alt="Logo" class="logo-img">
+    <img src="easy4school.webp" alt="Logo" class="logo-img">
         EASY<span>4SCHOOL</span>
     </div>
         <a href="https://zalo.me/0878771668" class="btn-zalo-top"><i class="fab fa-whatsapp"></i> Tư vấn ngay</a>
