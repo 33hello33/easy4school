@@ -191,3 +191,43 @@
             .hero h1 { font-size: 2rem; }
             .cta-group { flex-direction: column; }
         }
+/* Tối ưu giao diện cho điện thoại (Mobile) */
+@media (max-width: 768px) {
+    /* 1. Thu nhỏ padding của header để tiết kiệm không gian */
+    header {
+        padding: 0.8rem 3%;
+    }
+
+    /* 2. Thu nhỏ logo và chữ */
+    .logo {
+        font-size: 1.1rem; /* Giảm từ 1.5rem xuống 1.1rem */
+        gap: 6px;         /* Thu hẹp khoảng cách ảnh và chữ */
+    }
+
+    .logo-img {
+        height: 30px;     /* Giảm chiều cao ảnh logo từ 40px xuống 30px */
+    }
+
+    /* 3. Thu nhỏ nút Tư vấn ngay */
+    .btn-zalo-top {
+        padding: 0.5rem 0.8rem; /* Giảm độ dày của nút */
+        font-size: 0.85rem;      /* Thu nhỏ cỡ chữ trong nút */
+        white-space: nowrap;    /* Đảm bảo chữ trong nút không bao giờ bị xuống dòng */
+    }
+    
+    /* 4. Ẩn icon Zalo nếu vẫn còn quá chật (tùy chọn) */
+    .btn-zalo-top i {
+        display: none; 
+    }
+}
+
+/* Cho các màn hình cực nhỏ (iPhone 5/SE...) */
+@media (max-width: 375px) {
+    .logo {
+        font-size: 1rem;
+    }
+    .btn-zalo-top {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.8rem;
+    }
+}
