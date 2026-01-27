@@ -28,7 +28,33 @@
             background-color: #fff;
         }
 
-        /* Header */
+
+
+/* Căn chỉnh khối logo để ảnh và chữ nằm trên một hàng */
+.logo {
+    display: flex;
+    align-items: center; /* Căn giữa theo chiều dọc */
+    gap: 10px;           /* Khoảng cách giữa ảnh và chữ */
+    font-weight: bold;
+    font-size: 24px;     /* Tùy chỉnh kích thước chữ của bạn */
+}
+
+/* Tùy chỉnh kích thước ảnh logo */
+.logo-img {
+    height: 40px;        /* Điều chỉnh chiều cao khớp với cỡ chữ */
+    width: auto;         /* Giữ nguyên tỉ lệ ảnh */
+    object-fit: contain;
+    border-radius: 4px;  /* Bo góc nhẹ nếu muốn */
+}
+
+/* Đảm bảo header dàn hàng ngang */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+        /* Header
         header {
             background: #fff;
             padding: 1rem 5%;
@@ -40,15 +66,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .logo span { color: var(--accent); }
+        } */
 
         .btn-zalo-top {
             background: var(--primary);
