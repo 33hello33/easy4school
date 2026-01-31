@@ -1775,3 +1775,40 @@ body:not(.manager-user) .nav-tab[data-tab="settings"] {
     left: 50%;
 }
 
+.carousel-container {
+        width: 100%;
+        max-width: 1000px;
+        margin: 20px auto;
+        overflow: hidden; /* Ẩn các ảnh thừa bên ngoài */
+        border-radius: 15px;
+        position: relative;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .carousel-slide {
+        display: flex;
+        transition: transform 0.8s ease-in-out; /* Hiệu ứng lướt mượt */
+    }
+
+    .slide-item {
+        min-width: 100%;
+        position: relative;
+    }
+
+    .slide-item img {
+        width: 100%;
+        display: block;
+        height: 350px;
+        object-fit: cover; /* Giúp ảnh không bị méo */
+    }
+
+    .slide-caption {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        background: rgba(0, 0, 0, 0.6);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-family: sans-serif;
+    }
