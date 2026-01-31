@@ -1775,40 +1775,54 @@ body:not(.manager-user) .nav-tab[data-tab="settings"] {
     left: 50%;
 }
 
+/* Layout chung cho Carousel */
 .carousel-container {
-        width: 100%;
-        max-width: 1000px;
-        margin: 20px auto;
-        overflow: hidden; /* Ẩn các ảnh thừa bên ngoài */
-        border-radius: 15px;
-        position: relative;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    }
+  display: flex;
+  flex-wrap: wrap; /* Cho phép rớt dòng để chia cột */
+  gap: 10px;
+  padding: 10px;
+}
 
-    .carousel-slide {
-        display: flex;
-        transition: transform 0.8s ease-in-out; /* Hiệu ứng lướt mượt */
-    }
+/* 📱 Mặc định cho Mobile: 1 ảnh mỗi hàng */
+.carousel-item {
+  flex: 0 0 100%; /* Chiếm 100% chiều rộng */
+}
 
-    .slide-item {
-        min-width: 100%;
-        position: relative;
-    }
+/* 💻 Cho Desktop (Màn hình > 768px): 3 ảnh mỗi hàng */
+@media (min-width: 768px) {
+  .carousel-item {
+    flex: 0 0 calc(33.333% - 10px); /* Chia 3 và trừ đi khoảng cách gap */
+  }
+}
 
-    .slide-item img {
-        width: 100%;
-        display: block;
-        height: 350px;
-        object-fit: cover; /* Giúp ảnh không bị méo */
-    }
+/* 🎨 Kỹ thuật Blurred Background */
+.image-wrapper {
+  position: relative;
+  height: 300px; /* Bạn có thể chỉnh chiều cao tùy ý */
+  width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: #000;
+}
 
-    .slide-caption {
-        position: absolute;
-        bottom: 20px;
-        left: 20px;
-        background: rgba(0, 0, 0, 0.6);
-        color: white;
-        padding: 10px 20px;
-        border-radius: 5px;
-        font-family: sans-serif;
-    }
+/* Lớp nền mờ */
+.bg-blur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(15px); /* Độ mờ */
+  transform: scale(1.2); /* Phóng to nhẹ để không lộ mép trắng khi mờ */
+  opacity: 0.6; /* Làm tối nền một chút để ảnh chính nổi bật */
+}
+
+/* Lớp ảnh chính */
+.main-img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Giữ nguyên tỉ lệ ảnh, không bị cắt */
+}
