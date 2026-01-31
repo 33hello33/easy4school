@@ -153,6 +153,35 @@
                 </div>
             </div>
         </div>
+        
+        <div class="carousel-container">
+            <div class="carousel-slide" id="carouselSlide">
+                <div class="slide-item">
+                    <img src="img/tongquan.jpg" alt="Giao diện phần mềm">
+                    <div class="slide-caption">Quản lý trung tâm cực kỳ đơn giản</div>
+                </div>
+                <div class="slide-item">
+                    <img src="img/xuathd.jpg" alt="Xuất hóa đơn dễ dàng">
+                    <div class="slide-caption">Xuất hóa đơn dễ dàng theo tháng hoặc buổi học</div>
+                </div>
+                <div class="slide-item">
+                    <img src="img/banhang.jpg" alt="Bán hàng dễ dàng">
+                    <div class="slide-caption">Bán hàng dễ dàng cho học sinh</div>
+                </div>
+                 <div class="slide-item">
+                    <img src="img/quanlythuchi.jpg" alt="Quản lý thu chi, tồn kho dễ dàng">
+                    <div class="slide-caption">Quản lý thu chi, tồn kho dễ dàng</div>
+                </div>
+                 <div class="slide-item">
+                    <img src="img/nochuathu.jpg" alt="Quản lý nợ chưa thu, quá hạn đóng tiền">
+                    <div class="slide-caption">Quản lý nợ chưa thu, quá hạn đóng tiền</div>
+                </div>
+                 <div class="slide-item">
+                    <img src="img/khoahoc.jpg" alt="Quản lý học sinh theo từng khóa học">
+                    <div class="slide-caption">Quản lý học sinh theo từng khóa học</div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section class="section section-intro">
@@ -881,6 +910,26 @@ window.onload = function() {
     renderCocauthuchiChart();
     renderSisotunglopChart();
 };
+
+    let counter = 0;
+    function autoSlide() {
+        const slide = document.getElementById('carouselSlide');
+        const items = document.querySelectorAll('.slide-item');
+        
+        counter++;
+        
+        // Nếu đi hết ảnh thì quay về ảnh đầu tiên
+        if (counter >= items.length) {
+            counter = 0;
+        }
+        
+        // Di chuyển slide theo chiều ngang
+        slide.style.transform = `translateX(${-counter * 100}%)`;
+    }
+    
+    // Chạy hàm autoSlide mỗi 3000ms (3 giây)
+    setInterval(autoSlide, 3000);
+    
     </script>
 </body>
 </html>
