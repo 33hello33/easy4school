@@ -1778,7 +1778,6 @@ body:not(.manager-user) .nav-tab[data-tab="settings"] {
 /* Layout chung cho Carousel */
     .carousel-container {
         width: 100%;
-        max-width: 1000px;
         margin: 20px auto;
         overflow: hidden; /* Ẩn các ảnh thừa bên ngoài */
         border-radius: 15px;
