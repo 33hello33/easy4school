@@ -814,12 +814,14 @@ function renderTangtruonghocvienChart() {
             });
         }
 
-        window.onload = renderThongkenolopChart;
-        window.onload = renderCocaudoanhthulopChart;
-        window.onload = renderTangtruonghocvienChart;
-        window.onload = renderTangtruongloinhuanChart;
-        window.onload = renderTangtruongdoanhthuChart;
-        window.onload = renderCocauthuchiChart;
+window.onload = function() {
+    renderThongkenolopChart();
+    renderCocaudoanhthulopChart();
+    renderTangtruonghocvienChart();
+    renderTangtruongloinhuanChart();
+    renderTangtruongdoanhthuChart();
+    renderCocauthuchiChart();
+};
     </script>
 </body>
 </html>
