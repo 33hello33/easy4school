@@ -523,61 +523,7 @@ function renderTangtruongdoanhthuChart() {
                 }
             });
         }
-Đây là file HTML hoàn chỉnh cho biểu đồ Tăng trưởng lợi nhuận 12 tháng. Tương tự các phần trước, tôi đã lược bỏ phần gọi API và thay thế bằng dữ liệu giả lập (Lợi nhuận = Doanh thu - Chi phí) để bạn có thể demo ngay lập tức.
 
-HTML
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biểu Đồ Lợi Nhuận Ròng - Easy4School</title>
-    
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8fafc;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .chart-container {
-            width: 90%;
-            max-width: 900px;
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-        h2 {
-            text-align: center;
-            color: #1e293b;
-            margin-bottom: 5px;
-            font-size: 1.6rem;
-        }
-        p.subtitle {
-            text-align: center;
-            color: #64748b;
-            font-size: 0.9rem;
-            margin-bottom: 25px;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="chart-container">
-        <h2>Tăng Trưởng Lợi Nhuận Ròng</h2>
-        <p class="subtitle">(Tổng thu nhập - Tổng chi phí vận hành)</p>
-        <div style="height: 400px;">
-            <canvas id="tangtruongloinhuanChart"></canvas>
-        </div>
-    </div>
-
-    <script>
         function renderTangtruongloinhuanChart() {
             const ctx = document.getElementById('tangtruongloinhuanChart').getContext('2d');
 
@@ -724,60 +670,7 @@ function renderTangtruonghocvienChart() {
                 }
             });
         }
-Đây là file HTML hoàn chỉnh cho biểu đồ Cơ cấu doanh thu theo lớp. Biểu đồ này sử dụng dạng Stacked Bar Chart (Cột chồng) để so sánh song song giữa doanh thu Học phí và Bán hàng của từng lớp, giúp chủ trung tâm biết rõ lớp nào đang mang lại lợi nhuận tốt nhất.
 
-HTML
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cơ cấu Doanh thu Lớp - Easy4School</title>
-    
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <style>
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: #f3f4f6;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
-        .container {
-            width: 95%;
-            max-width: 1000px;
-            background: white;
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-        }
-        h2 {
-            text-align: center;
-            color: #111827;
-            margin-bottom: 10px;
-        }
-        .description {
-            text-align: center;
-            color: #6b7280;
-            font-size: 0.9rem;
-            margin-bottom: 30px;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="container">
-        <h2>Cơ Cấu Doanh Thu Theo Lớp</h2>
-        <p class="description">So sánh Học phí và Bán hàng trên từng lớp học</p>
-        <div style="height: 450px;">
-            <canvas id="cocaudoanhthulopChart"></canvas>
-        </div>
-    </div>
-
-    <script>
         function renderCocaudoanhthulopChart() {
             const ctx = document.getElementById('cocaudoanhthulopChart').getContext('2d');
 
