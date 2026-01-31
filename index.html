@@ -383,6 +383,78 @@
     <a href="https://zalo.me/0878771668" class="zalo-float" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
+<script>
+        // Hàm render biểu đồ với dữ liệu giả (Mock Data)
+        function renderCocauthuchiChart() {
+            const ctx = document.getElementById('cocauthuchiChart').getContext('2d');
 
+            // 1. Dữ liệu giả lập để demo
+            const dataDetails = {
+                'Học phí': 150000000,
+                'Bán hàng': 45000000,
+                'Thu khác': 12000000,
+                'Phiếu chi': 35000000,
+                'Nhập kho': 20000000,
+                'Lương nhân viên': 65000000
+            };
+
+            const filteredLabels = Object.keys(dataDetails);
+            const filteredData = Object.values(dataDetails);
+            const formatter = new Intl.NumberFormat('vi-VN');
+
+            // 2. Khởi tạo biểu đồ
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: filteredLabels,
+                    datasets: [{
+                        data: filteredData,
+                        backgroundColor: [
+                            '#10B981', // Học phí
+                            '#34D399', // Bán hàng
+                            '#60A5FA', // Thu khác
+                            '#F87171', // Phiếu chi
+                            '#FB923C', // Nhập kho
+                            '#A78BFA'  // Lương nhân viên
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                // Hiển thị tên và số tiền ngay ở phần chú thích
+                                generateLabels: (chart) => {
+                                    const data = chart.data;
+                                    return data.labels.map((label, i) => ({
+                                        text: `${label}: ${formatter.format(data.datasets[0].data[i])}đ`,
+                                        fillStyle: data.datasets[0].backgroundColor[i],
+                                        index: i
+                                    }));
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const value = context.raw;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = ((value / total) * 100).toFixed(1);
+                                    return ` ${formatter.format(value)}đ (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Tự động chạy hàm khi trang web tải xong
+        window.onload = renderCocauthuchiChart;
+    </script>
 </body>
 </html>
