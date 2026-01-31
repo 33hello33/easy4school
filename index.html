@@ -151,6 +151,158 @@
         </div>
     </section>
 
+    <section class="section section-intro">
+        <div class="text-center">
+            <h2 style="font-size: 2rem;">Báo Cáo Chi Tiết Tăng Trường Lợi Nhuận Doanh Thu</h2>
+        </div>
+        <div class="glass-card">
+                    <!-- Customers Section -->
+             
+                    <!-- Reports Section -->
+                    <div id="reports" class="content-section active">
+                        <div class="reports-filter-controls">
+                            <div class="date-range-filter">
+                                <label for="report-from-date">Từ ngày:</label>
+                                <input type="date" id="report-from-date" class="form-control">
+                            </div>
+                            <div class="date-range-filter">
+                                <label for="report-to-date">Đến ngày:</label>
+                                <input type="date" id="report-to-date" class="form-control">
+                            </div>
+                            <div class="date-range-filter">
+                                <label for="report-staff-filter">Nhân viên:</label>
+                                <select id="report-staff-filter" class="form-control" onchange="renderReports()"><option value="">Tất cả nhân viên</option><option value="Mr Đạt">Mr Đạt</option><option value="Ms Vy">Ms Vy</option><option value="Ms Ngọc">Ms Ngọc</option><option value="Bùi Tiến Đạt">Bùi Tiến Đạt</option><option value="Ms Dương">Ms Dương</option><option value="Bùi Thị Diễm">Bùi Thị Diễm</option><option value="Ms Trang">Ms Trang</option><option value="Ms Loan">Ms Loan</option><option value="Ms Uyên">Ms Uyên</option><option value="Ms Lài">Ms Lài</option><option value="Ms Kim Ngọc">Ms Kim Ngọc</option><option value="Anh Ngữ E Skills">Anh Ngữ E Skills</option><option value="Mr Tiến Đạt">Mr Tiến Đạt</option></select>
+                            </div>
+                            <button class="btn btn-secondary" onclick="resetReportDateFilter()">
+                                <i class="fas fa-refresh"></i> Reset
+                            </button>
+                        </div>
+                        <div class="reports-grid">
+                            <!-- Overview Cards -->
+                            <div class="overview-cards">
+                                <div class="overview-card">
+                                    <div class="card-icon">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                    <div class="card-content">
+                                        <h3 id="total-customers-count">149</h3>
+                                        <p>Tổng học viên</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="overview-card">
+                                    <div class="card-icon">
+                                        <i class="fas fa-chart-line"></i>
+                                    </div>
+                                    <div class="card-content">
+                                        <h3 id="total-care-count">152.493.014 VNĐ (89 đơn)</h3>
+                                        <p>Tổng doanh thu</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="overview-card">
+                                    <div class="card-icon">
+                                        <i class="fas fa-calendar-day"></i>
+                                    </div>
+                                    <div class="card-content">
+                                        <h3 id="today-customers-count">2</h3>
+                                        <p>Học viên mới tháng này</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="overview-card">
+                                    <div class="card-icon">
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="card-content">
+                                        <h3 id="top-staff-name">Cập nhật sau</h3>
+                                        <p>Nhân viên tích cực nhất</p>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <!-- Charts - cập nhật thành 6 biểu đồ -->
+                            <div class="charts-container">
+                                <div class="chart-card">
+                                    <h3><i class="fas fa-chart-pie"></i> Cơ cấu doanh thu, chi phí trong tháng</h3>
+                                    <canvas id="cocauthuchiChart" width="669" height="250" style="display: block; box-sizing: border-box; height: 250px; width: 669px;"></canvas>
+                                </div>
+                                
+                                <div class="chart-card">
+                                    <h3><i class="fas fa-chart-bar"></i> Biểu đồ tăng trưởng doanh thu các tháng</h3>
+                                    <canvas id="tangtruongdoanhthuChart" width="669" height="250" style="display: block; box-sizing: border-box; height: 250px; width: 669px;"></canvas>
+                                </div>
+                                
+                                <div class="chart-card">
+                                    <h3><i class="fas fa-chart-line"></i> Biểu đồ tăng trưởng lợi nhuận các tháng</h3>
+                                    <canvas id="tangtruongloinhuanChart" width="669" height="250" style="display: block; box-sizing: border-box; height: 250px; width: 669px;"></canvas>
+                                </div>
+        
+                                <div class="chart-card">
+                                    <h3><i class="fas fa-share-alt"></i> Tăng trưởng học viên các tháng</h3>
+                                    <canvas id="tangtruonghocvienChart" width="669" height="250" style="display: block; box-sizing: border-box; height: 250px; width: 669px;"></canvas>
+                                </div>               
+        
+                                <div class="chart-card">
+                                    <h3><i class="fas fa-trophy"></i> Cơ cấu doanh thu theo lớp</h3>
+                                    <canvas id="cocaudoanhthulopChart" width="669" height="250" style="display: block; box-sizing: border-box; height: 250px; width: 669px;"></canvas>
+                                </div>
+                                
+                                <div class="chart-card">
+                                    <h3><i class="fas fa-calendar-alt"></i> Thống kê nợ theo lớp</h3>
+                                    <canvas id="thongkenolopChart" width="669" height="250" style="display: block; box-sizing: border-box; height: 250px; width: 669px;"></canvas>
+                                </div>
+        
+                                <div class="chart-card">
+                                    <h3><i class="fas fa-trophy"></i> Tổng công nợ trong tháng</h3>
+                                    <div id="tongcongnotrongthangChart" class="top-list">
+                    <div class="top-item" style="display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #f0f0f0; align-items: center;">
+                        <div class="top-item-info" style="display: flex; align-items: center; gap: 12px;">
+                            <div class="top-item-rank" style="font-weight: bold; width: 25px; color: #666;">1</div>
+                            <div style="display: flex; flex-direction: column;">
+                                <span style="font-weight: bold; color: #333;">Nguyễn Gia Bảo</span>
+                                <small style="color: #888;">Mã HV: HV0134 | Lớp: Everybody Up 1+</small>
+                                <small style="color: #aaa; font-size: 10px;">HĐ: HD0000278</small>
+                            </div>
+                        </div>
+                        <div class="top-item-count" style="font-weight: bold; color: #d32f2f; background: #fff5f5; padding: 4px 8px; border-radius: 4px;">
+                            3.170.000 đ
+                        </div>
+                    </div>
+                
+                    <div class="top-item" style="display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #f0f0f0; align-items: center;">
+                        <div class="top-item-info" style="display: flex; align-items: center; gap: 12px;">
+                            <div class="top-item-rank" style="font-weight: bold; width: 25px; color: #666;">2</div>
+                            <div style="display: flex; flex-direction: column;">
+                                <span style="font-weight: bold; color: #333;">Võ Phạm Minh Quân</span>
+                                <small style="color: #888;">Mã HV: HV0082 | Lớp: Everybody Up 1+</small>
+                                <small style="color: #aaa; font-size: 10px;">HĐ: HD0000287</small>
+                            </div>
+                        </div>
+                        <div class="top-item-count" style="font-weight: bold; color: #d32f2f; background: #fff5f5; padding: 4px 8px; border-radius: 4px;">
+                            2.305.000 đ
+                        </div>
+                    </div>
+                </div>
+                                </div>
+                                
+                                <div class="chart-card">
+                                    <h3><i class="fas fa-money-bill-wave"></i> Báo cáo sĩ số học sinh từng lớp</h3>
+                                    <canvas id="sisotunglopChart" width="669" height="250" style="display: block; box-sizing: border-box; height: 250px; width: 669px;"></canvas>
+                                </div>
+                                
+                                <div class="chart-card">
+                                    <h3><i class="fas fa-user-tie"></i> Cơ cấu nhân viên</h3>
+                                    <div id="staffRevenueList" class="top-list"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+        
+        </div>
+    </section>
+    
     <section class="section text-center" id="contact">
         <h2 style="font-size: 2.2rem; margin-bottom: 1rem;">Bắt đầu số hóa trường học của bạn ngay!</h2>
         <p>Liên hệ để được tư vấn và trải nghiệm bản Demo dành riêng cho bạn.</p>
