@@ -452,8 +452,480 @@
                 }
             });
         }
+function renderTangtruongdoanhthuChart() {
+            const ctx = document.getElementById('tangtruongdoanhthuChart').getContext('2d');
+            
+            // 1. Tạo nhãn 12 tháng gần nhất tự động
+            const monthLabels = [];
+            const currentDate = new Date();
+            for (let i = 11; i >= 0; i--) {
+                const date = new Date(currentDate.getFullYear(), currentDate.getMonth() - i, 1);
+                monthLabels.push(`${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`);
+            }
 
-        // Tự động chạy hàm khi trang web tải xong
+            // 2. DỮ LIỆU GIẢ LẬP (Mock Data) - Doanh thu tăng dần qua các tháng
+            const mockRevenueData = [
+                45000000, 52000000, 48000000, 61000000, 75000000, 82000000, 
+                79000000, 95000000, 110000000, 125000000, 140000000, 155000000
+            ];
+
+            const successColor = '#10B981'; // Màu xanh lá đặc trưng của Easy4School
+
+            // 3. Khởi tạo biểu đồ Line
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: monthLabels,
+                    datasets: [{
+                        label: 'Doanh thu tổng (Học phí + Hàng hóa)',
+                        data: mockRevenueData,
+                        borderColor: successColor,
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)', // Màu nền mờ dưới đường line
+                        tension: 0.4, // Độ cong của đường (0.4 là đẹp nhất)
+                        fill: true,
+                        pointRadius: 5,
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: successColor,
+                        pointHoverRadius: 7,
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        },
+                        tooltip: {
+                            backgroundColor: '#1e293b',
+                            padding: 12,
+                            callbacks: {
+                                label: (context) => ` Doanh thu: ${new Intl.NumberFormat('vi-VN').format(context.raw)} đ`
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false } // Ẩn lưới dọc cho hiện đại
+                        },
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: (value) => {
+                                    if (value >= 1000000) return (value / 1000000) + 'M';
+                                    return new Intl.NumberFormat('vi-VN').format(value);
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+Đây là file HTML hoàn chỉnh cho biểu đồ Tăng trưởng lợi nhuận 12 tháng. Tương tự các phần trước, tôi đã lược bỏ phần gọi API và thay thế bằng dữ liệu giả lập (Lợi nhuận = Doanh thu - Chi phí) để bạn có thể demo ngay lập tức.
+
+HTML
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biểu Đồ Lợi Nhuận Ròng - Easy4School</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8fafc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .chart-container {
+            width: 90%;
+            max-width: 900px;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        h2 {
+            text-align: center;
+            color: #1e293b;
+            margin-bottom: 5px;
+            font-size: 1.6rem;
+        }
+        p.subtitle {
+            text-align: center;
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="chart-container">
+        <h2>Tăng Trưởng Lợi Nhuận Ròng</h2>
+        <p class="subtitle">(Tổng thu nhập - Tổng chi phí vận hành)</p>
+        <div style="height: 400px;">
+            <canvas id="tangtruongloinhuanChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        function renderTangtruongloinhuanChart() {
+            const ctx = document.getElementById('tangtruongloinhuanChart').getContext('2d');
+
+            // 1. Tự động tạo nhãn 12 tháng gần nhất
+            const monthLabels = [];
+            const currentDate = new Date();
+            for (let i = 11; i >= 0; i--) {
+                const date = new Date(currentDate.getFullYear(), currentDate.getMonth() - i, 1);
+                monthLabels.push(`${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`);
+            }
+
+            // 2. DỮ LIỆU GIẢ LẬP (Mock Data) 
+            // Đại diện cho lợi nhuận sau khi đã trừ hết các chi phí
+            const profitValues = [
+                15000000, 18500000, 12000000, 25000000, 32000000, 38000000, 
+                31000000, 45000000, 58000000, 62000000, 75000000, 88000000
+            ];
+
+            const mainColor = '#4A6FDC'; // Màu xanh dương đậm phối hợp với thương hiệu
+
+            // 3. Khởi tạo biểu đồ Line cho Lợi Nhuận
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: monthLabels,
+                    datasets: [{
+                        label: 'Lợi nhuận ròng (VNĐ)',
+                        data: profitValues,
+                        borderColor: mainColor,
+                        backgroundColor: 'rgba(74, 111, 220, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 6,
+                        pointBackgroundColor: '#ffffff',
+                        pointBorderColor: mainColor,
+                        pointBorderWidth: 2,
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                usePointStyle: true,
+                                padding: 20
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: '#0f172a',
+                            padding: 15,
+                            callbacks: {
+                                label: (context) => ` Lợi nhuận: ${new Intl.NumberFormat('vi-VN').format(context.raw)} đ`
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#64748b' }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: '#64748b',
+                                callback: (value) => new Intl.NumberFormat('vi-VN').format(value) + ' đ'
+                            },
+                            grid: { color: '#f1f5f9' }
+                        }
+                    }
+                }
+            });
+        }
+function renderTangtruonghocvienChart() {
+            const ctx = document.getElementById('tangtruonghocvienChart').getContext('2d');
+
+            // 1. Tự động tạo nhãn 12 tháng gần nhất
+            const monthLabels = [];
+            const currentDate = new Date();
+            for (let i = 11; i >= 0; i--) {
+                const date = new Date(currentDate.getFullYear(), currentDate.getMonth() - i, 1);
+                monthLabels.push(`${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`);
+            }
+
+            // 2. DỮ LIỆU GIẢ LẬP (Mock Data) - Số lượng học viên mới đăng ký mỗi tháng
+            const chartData = [12, 15, 10, 22, 30, 28, 35, 42, 38, 50, 65, 72];
+
+            const primaryColor = '#4A6FDC';
+
+            // 3. Khởi tạo biểu đồ với Plugin hiển thị số liệu
+            new Chart(ctx, {
+                type: 'line',
+                plugins: [ChartDataLabels], // Kích hoạt plugin hiển thị số trên đầu mút
+                data: {
+                    labels: monthLabels,
+                    datasets: [{
+                        label: 'Học viên mới',
+                        data: chartData,
+                        borderColor: primaryColor,
+                        backgroundColor: 'rgba(74, 111, 220, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 6,
+                        pointHoverRadius: 8,
+                        pointBackgroundColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        // Cấu hình hiển thị con số tại mỗi điểm
+                        datalabels: {
+                            align: 'top',
+                            anchor: 'end',
+                            offset: 6,
+                            color: primaryColor,
+                            font: { weight: 'bold', size: 12 },
+                            formatter: (val) => val // Hiển thị giá trị số
+                        }
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    layout: { padding: { top: 30 } }, // Tạo không gian cho label trên cùng
+                    plugins: {
+                        legend: { display: false }, // Ẩn legend cho gọn vì đã có title
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { stepSize: 10, color: '#94a3b8' },
+                            grid: { borderDash: [5, 5], color: '#e2e8f0' },
+                            title: { display: true, text: 'Số lượng học viên', color: '#64748b' }
+                        },
+                        x: {
+                            ticks: { color: '#94a3b8' },
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+Đây là file HTML hoàn chỉnh cho biểu đồ Cơ cấu doanh thu theo lớp. Biểu đồ này sử dụng dạng Stacked Bar Chart (Cột chồng) để so sánh song song giữa doanh thu Học phí và Bán hàng của từng lớp, giúp chủ trung tâm biết rõ lớp nào đang mang lại lợi nhuận tốt nhất.
+
+HTML
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cơ cấu Doanh thu Lớp - Easy4School</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f3f4f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            width: 95%;
+            max-width: 1000px;
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        h2 {
+            text-align: center;
+            color: #111827;
+            margin-bottom: 10px;
+        }
+        .description {
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Cơ Cấu Doanh Thu Theo Lớp</h2>
+        <p class="description">So sánh Học phí và Bán hàng trên từng lớp học</p>
+        <div style="height: 450px;">
+            <canvas id="cocaudoanhthulopChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        function renderCocaudoanhthulopChart() {
+            const ctx = document.getElementById('cocaudoanhthulopChart').getContext('2d');
+
+            // 1. DỮ LIỆU GIẢ LẬP (Mock Data)
+            const classLabels = ['Lớp IELTS 01', 'Lớp IELTS 02', 'Lớp Kid 01', 'Lớp Kid 02', 'Lớp Toeic A', 'Lớp Giao tiếp'];
+            
+            const hocPhiValues = [85000000, 72000000, 45000000, 38000000, 55000000, 62000000];
+            const banHangValues = [12000000, 8500000, 15000000, 18000000, 5000000, 9000000];
+
+            const formatter = new Intl.NumberFormat('vi-VN');
+
+            // 2. Khởi tạo biểu đồ Stacked Bar Chart
+            new Chart(ctx, {
+                type: 'bar', 
+                data: {
+                    labels: classLabels,
+                    datasets: [
+                        {
+                            label: 'Học phí',
+                            data: hocPhiValues,
+                            backgroundColor: '#10B981', // Xanh lá
+                            borderRadius: 4,
+                        },
+                        {
+                            label: 'Bán hàng (Giáo trình/Phụ kiện)',
+                            data: banHangValues,
+                            backgroundColor: '#3B82F6', // Xanh dương
+                            borderRadius: 4,
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: { boxWidth: 12, usePointStyle: true }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => {
+                                    const val = context.raw;
+                                    return ` ${context.dataset.label}: ${formatter.format(val)} đ`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            stacked: true, // Bật tính năng cột chồng
+                            grid: { display: false }
+                        },
+                        y: { 
+                            stacked: true, // Bật tính năng cột chồng
+                            beginAtZero: true,
+                            ticks: {
+                                callback: (val) => formatter.format(val / 1000000) + 'M'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Hàm tạo màu sắc ngẫu nhiên chuyên nghiệp
+        function generateChartColors(count) {
+            const predefinedColors = [
+                '#f87171', '#fb923c', '#fbbf24', '#facc15', '#4ade80', 
+                '#2dd4bf', '#38bdf8', '#818cf8', '#a78bfa', '#fb7185'
+            ];
+            let colors = [];
+            for (let i = 0; i < count; i++) {
+                colors.push(predefinedColors[i % predefinedColors.length]);
+            }
+            return colors;
+        }
+
+        function renderThongkenolopChart() {
+            const ctx = document.getElementById('thongkenolopChart').getContext('2d');
+
+            // 1. DỮ LIỆU GIẢ LẬP (Mock Data)
+            const sourceNames = ['Lớp IELTS 01', 'Lớp IELTS 02', 'Lớp Kid 01', 'Lớp Kid 02', 'Lớp Toeic A', 'Lớp Giao tiếp'];
+            const debtValues = [12500000, 8400000, 21000000, 5600000, 15000000, 3200000];
+
+            const colors = generateChartColors(sourceNames.length);
+
+            // 2. Khởi tạo biểu đồ cột (Bar Chart)
+            new Chart(ctx, {
+                type: 'bar',
+                plugins: [ChartDataLabels], 
+                data: {
+                    labels: sourceNames,
+                    datasets: [{
+                        label: 'Tổng tiền còn nợ (VNĐ)',
+                        data: debtValues,
+                        backgroundColor: colors,
+                        borderColor: colors,
+                        borderWidth: 1,
+                        borderRadius: 6, // Bo góc cột cho hiện đại
+                        datalabels: {
+                            anchor: 'end',
+                            align: 'top',
+                            color: '#475569',
+                            font: { weight: 'bold', size: 11 },
+                            formatter: function(value) {
+                                if (value >= 1000000) return (value / 1000000).toFixed(1) + ' Tr';
+                                if (value >= 1000) return (value / 1000).toFixed(0) + ' K';
+                                return value;
+                            }
+                        }
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    layout: { padding: { top: 30 } },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => ' Còn nợ: ' + new Intl.NumberFormat('vi-VN').format(context.raw) + ' VNĐ'
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: (value) => {
+                                    if (value >= 1000000) return (value / 1000000) + 'M';
+                                    return new Intl.NumberFormat('vi-VN').format(value);
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        window.onload = renderThongkenolopChart;
+        window.onload = renderCocaudoanhthulopChart;
+        window.onload = renderTangtruonghocvienChart;
+        window.onload = renderTangtruongloinhuanChart;
+        window.onload = renderTangtruongdoanhthuChart;
         window.onload = renderCocauthuchiChart;
     </script>
 </body>
