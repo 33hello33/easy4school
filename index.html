@@ -813,7 +813,69 @@ function renderTangtruonghocvienChart() {
                 }
             });
         }
+    
+function renderSisotunglopChart() {
+            const ctx = document.getElementById('sisotunglopChart').getContext('2d');
 
+            // 1. DỮ LIỆU GIẢ LẬP (Mock Data)
+            const mockData = [
+                { label: 'Lớp IELTS 6.5', count: 12 },
+                { label: 'Lớp IELTS 5.0', count: 18 },
+                { label: 'Lớp Tiếng Anh Giao Tiếp', count: 25 },
+                { label: 'Lớp Kid Star 01', count: 15 },
+                { label: 'Lớp Toeic Cấp Tốc', count: 10 }
+            ];
+
+            const rawNames = mockData.map(item => item.label);
+            const counts = mockData.map(item => item.count);
+            const labels = mockData.map(item => `${item.label}: ${item.count} hv`);
+            
+            const colors = generateChartColors(counts.length);
+
+            // 2. Khởi tạo biểu đồ Doughnut
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: counts,
+                        backgroundColor: colors,
+                        borderColor: '#ffffff',
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '65%', // Độ rỗng của vòng tròn (tạo hình Doughnut)
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'right',
+                            align: 'center',
+                            labels: {
+                                boxWidth: 15,
+                                padding: 20,
+                                font: { size: 12, weight: '500' },
+                                usePointStyle: true
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const value = context.raw;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = ((value / total) * 100).toFixed(1);
+                                    const sourceName = rawNames[context.dataIndex];
+                                    return ` ${sourceName}: ${value} học viên (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    
 window.onload = function() {
     renderThongkenolopChart();
     renderCocaudoanhthulopChart();
@@ -821,6 +883,7 @@ window.onload = function() {
     renderTangtruongloinhuanChart();
     renderTangtruongdoanhthuChart();
     renderCocauthuchiChart();
+    renderSisotunglopChart;
 };
     </script>
 </body>
