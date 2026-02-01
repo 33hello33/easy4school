@@ -154,31 +154,36 @@
             </div>
         </div>
         
-      <div class="carousel-container">
+              <div class="carousel-container">
             <div class="carousel-slide" id="carouselSlide">
                 <div class="slide-item">
-                    <img src="img/tongquan.jpg" alt="Giao diện phần mềm">
+                    <div class="image-wrapper">
+                        <img src="img/tongquan.jpg" class="img-blur"> <img src="img/tongquan.jpg" class="img-main"> </div>
                     <div class="slide-caption">Quản lý trung tâm cực kỳ đơn giản</div>
                 </div>
+                
                 <div class="slide-item">
-                    <img src="img/xuathd.jpg" alt="Xuất hóa đơn dễ dàng">
+                    <div class="image-wrapper">
+                        <img src="img/xuathd.jpg" class="img-blur">
+                        <img src="img/xuathd.jpg" class="img-main">
+                    </div>
                     <div class="slide-caption">Xuất hóa đơn dễ dàng theo tháng hoặc buổi học</div>
                 </div>
+        
                 <div class="slide-item">
-                    <img src="img/banhang.jpg" alt="Bán hàng dễ dàng">
+                    <div class="image-wrapper">
+                        <img src="img/banhang.jpg" class="img-blur">
+                        <img src="img/banhang.jpg" class="img-main">
+                    </div>
                     <div class="slide-caption">Bán hàng dễ dàng cho học sinh</div>
                 </div>
-                 <div class="slide-item">
-                    <img src="img/quanlythuchi.jpg" alt="Quản lý thu chi, tồn kho dễ dàng">
-                    <div class="slide-caption">Quản lý thu chi, tồn kho dễ dàng</div>
-                </div>
-                 <div class="slide-item">
-                    <img src="img/nochuathu.jpg" alt="Quản lý nợ chưa thu, quá hạn đóng tiền">
+        
+                <div class="slide-item">
+                    <div class="image-wrapper">
+                        <img src="img/quanlythuchi.jpg" class="img-blur">
+                        <img src="img/quanlythuchi.jpg" class="img-main">
+                    </div>
                     <div class="slide-caption">Quản lý nợ chưa thu, quá hạn đóng tiền</div>
-                </div>
-                 <div class="slide-item">
-                    <img src="img/khoahoc.jpg" alt="Quản lý học sinh theo từng khóa học">
-                    <div class="slide-caption">Quản lý học sinh theo từng khóa học</div>
                 </div>
             </div>
         </div>
@@ -911,24 +916,44 @@ window.onload = function() {
     renderSisotunglopChart();
 };
 
-    let counter = 0;
-    function autoSlide() {
-        const slide = document.getElementById('carouselSlide');
-        const items = document.querySelectorAll('.slide-item');
-        
-        counter++;
-        
-        // Nếu đi hết ảnh thì quay về ảnh đầu tiên
-        if (counter >= items.length) {
-            counter = 0;
-        }
-        
-        // Di chuyển slide theo chiều ngang
-        slide.style.transform = `translateX(${-counter * 100}%)`;
-    }
+ let currentIndex = 0;
+const slideContainer = document.getElementById('carouselSlide');
+const slides = document.querySelectorAll('.slide-item');
+const totalSlides = slides.length;
+
+function moveSlide(direction) {
+    // 1. Kiểm tra xem đang là Desktop (hiện 2) hay Mobile (hiện 1)
+    const itemsToShow = window.innerWidth >= 768 ? 2 : 1;
     
-    // Chạy hàm autoSlide mỗi 3000ms (3 giây)
-    setInterval(autoSlide, 3000);
+    // 2. Cập nhật chỉ số ảnh hiện tại
+    currentIndex += direction;
+
+    // 3. Giới hạn không cho lướt quá số lượng ảnh
+    // Nếu lướt quá ảnh cuối, quay về đầu
+    if (currentIndex > totalSlides - itemsToShow) {
+        currentIndex = 0;
+    }
+    // Nếu lướt lùi quá ảnh đầu, nhảy tới cuối
+    if (currentIndex < 0) {
+        currentIndex = totalSlides - itemsToShow;
+    }
+
+    // 4. Tính toán phần trăm để dịch chuyển
+    // Nếu hiện 2 cái thì mỗi bước nhảy là 50%, hiện 1 cái nhảy 100%
+    const step = 100 / itemsToShow;
+    slideContainer.style.transform = `translateX(-${currentIndex * step}%)`;
+}
+
+// Tự động chạy sau mỗi 3 giây (tùy chọn)
+setInterval(() => {
+    moveSlide(1);
+}, 3000);
+
+// Reset về slide đầu khi xoay màn hình để tránh lỗi hiển thị
+window.addEventListener('resize', () => {
+    currentIndex = 0;
+    slideContainer.style.transform = `translateX(0)`;
+});
     
     </script>
 </body>
