@@ -1850,3 +1850,33 @@ body:not(.manager-user) .nav-tab[data-tab="settings"] {
     font-size: 14px;
     z-index: 2;
 }
+/* Tối ưu bộ lọc báo cáo trên Mobile */
+@media (max-width: 768px) {
+    .reports-filter-controls {
+        flex-direction: column; /* Chuyển thành hàng dọc */
+        align-items: stretch;    /* Cho phép các phần tử con giãn hết chiều ngang */
+        gap: 12px;
+        padding: 10px;
+    }
+
+    .date-range-filter {
+        flex-direction: row;     /* Giữ label và input nằm cùng hàng hoặc chuyển column tùy bạn */
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .date-range-filter label {
+        min-width: 80px;         /* Cố định độ rộng label để các ô input thẳng hàng */
+    }
+
+    .date-range-filter .form-control {
+        width: 100% !important;  /* Ghi đè lại width 150px để giãn theo màn hình */
+        flex: 1;
+    }
+
+    .reports-filter-controls .btn {
+        width: 100%;             /* Nút Reset giãn hết chiều ngang cho dễ bấm */
+        justify-content: center;
+        margin-top: 5px;
+    }
+}
