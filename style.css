@@ -1879,4 +1879,122 @@ body:not(.manager-user) .nav-tab[data-tab="settings"] {
         justify-content: center;
         margin-top: 5px;
     }
+
+        .e-con.e-flex>.e-con-inner {
+    align-content: var(--align-content);
+    align-items: var(--align-items);
+    align-self: auto;
+    flex-basis: auto;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-wrap: var(--flex-wrap);
+    justify-content: var(--justify-content)
+}
+
+.e-con.e-grid>.e-con-inner {
+    align-items: var(--align-items);
+    justify-items: var(--justify-items)
+}
+
+.e-con>.e-con-inner {
+    gap: var(--row-gap) var(--column-gap);
+    height: 100%;
+    margin: 0 auto;
+    max-width: var(--content-width);
+    padding-inline-end:0;padding-inline-start:0;width: 100%
+}
+
+:is(.elementor-section-wrap,[data-elementor-id])>.e-con {
+    --margin-left: auto;
+    --margin-right: auto;
+    max-width: min(100%,var(--width))
+}
+
+:is([data-widget_type="e-component.default"],[data-widget_type="e-component.default"]>.elementor-section-wrap)>.e-con {
+    --margin-right: 0px;
+    --margin-left: 0px
+}
+
+.e-con .elementor-widget.elementor-widget {
+    margin-block-end:0}
+
+.e-con:before,.e-con>.elementor-background-slideshow:before,.e-con>.elementor-motion-effects-container>.elementor-motion-effects-layer:before,:is(.e-con,.e-con>.e-con-inner)>.elementor-background-video-container:before {
+    border-block-end-width:var(--border-block-end-width);border-block-start-width: var(--border-block-start-width);
+    border-color: var(--border-color);
+    border-inline-end-width:var(--border-inline-end-width);border-inline-start-width: var(--border-inline-start-width);
+    border-radius: var(--border-radius);
+    border-style: var(--border-style);
+    content: var(--background-overlay);
+    display: block;
+    height: max(100% + var(--border-top-width) + var(--border-bottom-width),100%);
+    left: calc(0px - var(--border-left-width));
+    mix-blend-mode: var(--overlay-mix-blend-mode);
+    opacity: var(--overlay-opacity);
+    position: absolute;
+    top: calc(0px - var(--border-top-width));
+    transition: var(--overlay-transition,.3s);
+    width: max(100% + var(--border-left-width) + var(--border-right-width),100%)
+}
+
+.e-con:before {
+    transition: background var(--overlay-transition,.3s),border-radius var(--border-transition,.3s),opacity var(--overlay-transition,.3s)
+}
+
+.e-con>.elementor-background-slideshow,:is(.e-con,.e-con>.e-con-inner)>.elementor-background-video-container {
+    border-block-end-width:var(--border-block-end-width);border-block-start-width: var(--border-block-start-width);
+    border-color: var(--border-color);
+    border-inline-end-width:var(--border-inline-end-width);border-inline-start-width: var(--border-inline-start-width);
+    border-radius: var(--border-radius);
+    border-style: var(--border-style);
+    height: max(100% + var(--border-top-width) + var(--border-bottom-width),100%);
+    left: calc(0px - var(--border-left-width));
+    top: calc(0px - var(--border-top-width));
+    width: max(100% + var(--border-left-width) + var(--border-right-width),100%)
+}
+
+@media (max-width: 768px) {
+    :is(.e-con,.e-con>.e-con-inner)>.elementor-background-video-container.elementor-hidden-mobile {
+        display:none
+    }
+}
+
+:is(.e-con,.e-con>.e-con-inner)>.elementor-background-video-container:before {
+    z-index: 1
+}
+
+:is(.e-con,.e-con>.e-con-inner)>.elementor-background-slideshow:before {
+    z-index: 2
+}
+
+.e-con .elementor-widget {
+    min-width: 0
+}
+
+.e-con .elementor-widget-empty,.e-con .elementor-widget-google_maps,.e-con .elementor-widget-video,.e-con .elementor-widget.e-widget-swiper {
+    width: 100%
+}
+
+.e-con>.e-con-inner>.elementor-widget>.elementor-widget-container,.e-con>.elementor-widget>.elementor-widget-container {
+    height: 100%
+}
+
+.e-con.e-con>.e-con-inner>.elementor-widget,.elementor.elementor .e-con>.elementor-widget {
+    max-width: 100%
+}
+
+.e-con .elementor-widget:not(:last-child) {
+    --kit-widget-spacing: 0px
+}
+
+@media (max-width: 767px) {
+    .e-con.e-flex {
+        --width:100%;
+        --flex-wrap: var(--flex-wrap-mobile)
+    }
+
+    .e-con.e-flex .elementor-widget-archive-posts {
+        width: 100%
+    }
+}
+
 }
