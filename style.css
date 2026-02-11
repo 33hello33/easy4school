@@ -1880,6 +1880,8 @@ body:not(.manager-user) .nav-tab[data-tab="settings"] {
         margin-top: 5px;
     }
 
+}
+
         .e-con.e-flex>.e-con-inner {
     align-content: var(--align-content);
     align-items: var(--align-items);
@@ -1997,4 +1999,3 @@ body:not(.manager-user) .nav-tab[data-tab="settings"] {
     }
 }
 
-}
