@@ -5,6 +5,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import AdminLogin from './pages/AdminLogin';
 import BlogPost from './pages/BlogPost';
 import { trackPageView } from './lib/analytics';
+import { supabase } from './lib/supabaseClient';
 
 function App() {
   useEffect(() => {
