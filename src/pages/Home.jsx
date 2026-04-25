@@ -6,7 +6,7 @@ import { initializeHomeCharts } from '../lib/chartjsSetup';
 
 export default function Home() {
     const [posts, setPosts] = useState([]);
-    const [logoUrl, setLogoUrl] = useState('img/easy4school.png');
+    const [logoUrl, setLogoUrl] = useState('/img/easy4school.png');
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -143,30 +143,30 @@ export default function Home() {
             <div className="carousel-slide" id="carouselSlide">
                 <div className="slide-item">
                     <div className="image-wrapper">
-                        <img src="img/tongquan.jpg" className="img-blur" /> <img src="img/tongquan.jpg" className="img-main" /> </div>
+                        <img src="/img/tongquan.jpg" className="img-blur" /> <img src="/img/tongquan.jpg" className="img-main" /> </div>
                     <div className="slide-caption">Quản lý trung tâm cực kỳ đơn giản</div>
                 </div>
                 
                 <div className="slide-item">
                     <div className="image-wrapper">
-                        <img src="img/xuathd.jpg" className="img-blur" />
-                        <img src="img/xuathd.jpg" className="img-main" />
+                        <img src="/img/xuathd.jpg" className="img-blur" />
+                        <img src="/img/xuathd.jpg" className="img-main" />
                     </div>
                     <div className="slide-caption">Xuất hóa đơn dễ dàng theo tháng hoặc buổi học</div>
                 </div>
         
                 <div className="slide-item">
                     <div className="image-wrapper">
-                        <img src="img/banhang.jpg" className="img-blur" />
-                        <img src="img/banhang.jpg" className="img-main" />
+                        <img src="/img/banhang.jpg" className="img-blur" />
+                        <img src="/img/banhang.jpg" className="img-main" />
                     </div>
                     <div className="slide-caption">Bán hàng dễ dàng cho học sinh</div>
                 </div>
         
                 <div className="slide-item">
                     <div className="image-wrapper">
-                        <img src="img/quanlythuchi.jpg" className="img-blur" />
-                        <img src="img/quanlythuchi.jpg" className="img-main" />
+                        <img src="/img/quanlythuchi.jpg" className="img-blur" />
+                        <img src="/img/quanlythuchi.jpg" className="img-main" />
                     </div>
                     <div className="slide-caption">Quản lý nợ chưa thu, quá hạn đóng tiền</div>
                 </div>
@@ -336,31 +336,31 @@ export default function Home() {
         <h2 style={{ fontSize: '2rem' }}>Hơn 100+ Trường học & Trung tâm tin dùng</h2>
     </div>
     <div className="partner-slider">
-        <img src="img/mamla.png" alt="Hệ thống trường mầm non lá" />
-        <img src="img/eskills.png" alt="Trung tâm Anh ngữ Eskils" />
-        <img src="img/baominh.jpg" alt="Trung tâm Anh ngữ Bảo Minh" />
-        <img src="img/buoctien.png" alt="Trung tâm Anh ngữ Bước Tiến" />
-        <img src="img/seungri.png" alt="CLB Taekwondo Seungri" />
-        <img src="img/mattroibe.jpg" alt="Trường mầm non Mặt Trời Bé" />
-        <img src="img/doremi.png" alt="Trường mầm non Doremi" />
-        <img src="img/mls.png" alt="Trung tâm tiếng hoa MLS" />
-        <img src="img/yesican.png" alt="Trung tâm Anh ngữ YES I CAN" />
-        <img src="img/phongle.jpg" alt="Trung tâm Anh ngữ Phong Lê" />
-        <img src="img/jcam.png" alt="Trung tâm Anh ngữ JC CAMBRIGDE" />
-        <img src="img/mathfriends.jpg" alt="Trung tâm Toán Math Friends" />
-        <img src="img/tkstudio.jpg" alt="Trung tâm Thể Thao TK Studio" />
-        <img src="img/allez.png" alt="Trung tâm Thể Thao Allez Sport" />
-        <img src="img/amber.jpg" alt="Trung tâm Anh ngữ Amber" />
-        <img src="img/hochai.png" alt="Trung tâm Luyện thi bồi dưỡng kiến thức Học Hải" />
-        <img src="img/hcenter.png" alt="Trung tâm Anh ngữ Hcenter" />
-        <img src="img/icandoit.png" alt="Trung tâm Anh ngữ I Can Do It" />
-        <img src="img/maihieu.png" alt="Trung tâm Anh ngữ Mai Hiếu" />
-        <img src="img/collins.png" alt="Trung tâm Anh ngữ Collins" />
-        <img src="img/smile-center.png" alt="Trung tâm Anh ngữ Smile Center" />
-        <img src="img/anhbinhminh.png" alt="Trường mầm non Ánh Bình Minh" />
-        <img src="img/newstar.png" alt="Trường mầm non New Star" />
-        <img src="img/tuoihong.png" alt="Trường mầm non Tuổi Hồng" />
-        <img src="img/cophuong.png" alt="Dạy thêm Cô Phượng" />
+        <img src="/img/mamla.png" alt="Hệ thống trường mầm non lá" />
+        <img src="/img/eskills.png" alt="Trung tâm Anh ngữ Eskils" />
+        <img src="/img/baominh.jpg" alt="Trung tâm Anh ngữ Bảo Minh" />
+        <img src="/img/buoctien.png" alt="Trung tâm Anh ngữ Bước Tiến" />
+        <img src="/img/seungri.png" alt="CLB Taekwondo Seungri" />
+        <img src="/img/mattroibe.jpg" alt="Trường mầm non Mặt Trời Bé" />
+        <img src="/img/doremi.png" alt="Trường mầm non Doremi" />
+        <img src="/img/mls.png" alt="Trung tâm tiếng hoa MLS" />
+        <img src="/img/yesican.png" alt="Trung tâm Anh ngữ YES I CAN" />
+        <img src="/img/phongle.jpg" alt="Trung tâm Anh ngữ Phong Lê" />
+        <img src="/img/jcam.png" alt="Trung tâm Anh ngữ JC CAMBRIGDE" />
+        <img src="/img/mathfriends.jpg" alt="Trung tâm Toán Math Friends" />
+        <img src="/img/tkstudio.jpg" alt="Trung tâm Thể Thao TK Studio" />
+        <img src="/img/allez.png" alt="Trung tâm Thể Thao Allez Sport" />
+        <img src="/img/amber.jpg" alt="Trung tâm Anh ngữ Amber" />
+        <img src="/img/hochai.png" alt="Trung tâm Luyện thi bồi dưỡng kiến thức Học Hải" />
+        <img src="/img/hcenter.png" alt="Trung tâm Anh ngữ Hcenter" />
+        <img src="/img/icandoit.png" alt="Trung tâm Anh ngữ I Can Do It" />
+        <img src="/img/maihieu.png" alt="Trung tâm Anh ngữ Mai Hiếu" />
+        <img src="/img/collins.png" alt="Trung tâm Anh ngữ Collins" />
+        <img src="/img/smile-center.png" alt="Trung tâm Anh ngữ Smile Center" />
+        <img src="/img/anhbinhminh.png" alt="Trường mầm non Ánh Bình Minh" />
+        <img src="/img/newstar.png" alt="Trường mầm non New Star" />
+        <img src="/img/tuoihong.png" alt="Trường mầm non Tuổi Hồng" />
+        <img src="/img/cophuong.png" alt="Dạy thêm Cô Phượng" />
     </div>
 </section>
 
