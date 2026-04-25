@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Easy4School</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css">
+    <!-- Tagify CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class='bx bxs-school' style="font-size: 32px; color: var(--primary-color);"></i>
+                <h3>Easy4School</h3>
+            </div>
+            <div class="sidebar-menu">
+                <a href="#" class="menu-item active" data-view="dashboard">
+                    <i class='bx bx-home-alt'></i>
+                    <span>Tổng quan</span>
+                </a>
+                <a href="#" class="menu-item" data-view="posts">
+                    <i class='bx bx-news'></i>
+                    <span>Bài viết</span>
+                </a>
+                <a href="#" class="menu-item" data-view="tags">
+                    <i class='bx bx-purchase-tag-alt'></i>
+                    <span>Tạo Tags</span>
+                </a>
+                <a href="#" class="menu-item" data-view="settings">
+                    <i class='bx bx-cog'></i>
+                    <span>Cấu hình Web (SEO)</span>
+                </a>
+                <a href="login.html" class="menu-item" style="margin-top: auto;">
+                    <i class='bx bx-log-out'></i>
+                    <span>Đăng xuất</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <div class="page-title" id="page-title">Tổng quan</div>
+                <div class="topbar-right">
+                    <div class="admin-profile">
+                        <div class="admin-avatar">A</div>
+                        <span>Admin</span>
+                        <i class='bx bx-chevron-down'></i>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <!-- Dashboard View -->
+                <div id="view-dashboard" class="view-section active">
+                    <div class="card">
+                        <h3 class="card-title">Xin chào Admin!</h3>
+                        <p style="color: var(--gray-color); margin-top: 10px;">Chào mừng bạn đến với trang quản trị Easy4School. Tại đây bạn có thể quản lý bài viết, cấu hình website chuẩn SEO.</p>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+                        <div class="card">
+                            <h3 class="card-title">Bài viết</h3>
+                            <div style="font-size: 32px; font-weight: 700; color: var(--primary-color);">12</div>
+                        </div>
+                        <div class="card">
+                            <h3 class="card-title">Tags</h3>
+                            <div style="font-size: 32px; font-weight: 700; color: var(--primary-color);">8</div>
+                        </div>
+                        <div class="card">
+                            <h3 class="card-title">Lượt xem</h3>
+                            <div style="font-size: 32px; font-weight: 700; color: var(--primary-color);">1,204</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Manage Posts View -->
+                <div id="view-posts" class="view-section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Quản lý Bài viết</h3>
+                            <button class="btn btn-primary" id="btn-create-post">
+                                <i class='bx bx-plus'></i> Viết bài mới
+                            </button>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Tiêu đề</th>
+                                    <th>Trạng thái</th>
+                                    <th>Ngày tạo</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Phần mềm quản lý tinh gọn</td>
+                                    <td><span class="status-badge status-published">Đã xuất bản</span></td>
+                                    <td>25/04/2026</td>
+                                    <td class="actions">
+                                        <button class="action-btn"><i class='bx bx-edit-alt'></i></button>
+                                        <button class="action-btn delete"><i class='bx bx-trash'></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Tại sao nên chọn Easy4School</td>
+                                    <td><span class="status-badge status-draft">Bản nháp</span></td>
+                                    <td>24/04/2026</td>
+                                    <td class="actions">
+                                        <button class="action-btn"><i class='bx bx-edit-alt'></i></button>
+                                        <button class="action-btn delete"><i class='bx bx-trash'></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Create/Edit Post View -->
+                <div id="view-editor" class="view-section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Soạn thảo Bài viết</h3>
+                            <div>
+                                <button class="btn btn-outline" id="btn-cancel-post">Hủy</button>
+                                <button class="btn btn-primary" style="margin-left: 10px;">Lưu & Xuất bản</button>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-col" style="flex: 2;">
+                                <label style="display: block; margin-bottom: 8px; font-weight: 500;">Tiêu đề bài viết</label>
+                                <input type="text" class="custom-input" placeholder="Nhập tiêu đề...">
+                                
+                                <label style="display: block; margin: 20px 0 8px; font-weight: 500;">Nội dung (Có thể chèn hình, video)</label>
+                                <div id="editor" style="height: 400px;"></div>
+                                
+                                <label style="display: block; margin: 20px 0 8px; font-weight: 500;">SEO Meta Title</label>
+                                <input type="text" class="custom-input" placeholder="Tiêu đề hiển thị trên Google (tối đa 60 ký tự)">
+                                
+                                <label style="display: block; margin: 20px 0 8px; font-weight: 500;">SEO Meta Description</label>
+                                <textarea class="custom-input" placeholder="Mô tả tóm tắt cho bài viết chuẩn SEO (tối đa 150-160 ký tự)"></textarea>
+                            </div>
+                            <div class="form-col" style="flex: 1;">
+                                <label style="display: block; margin-bottom: 8px; font-weight: 500;">Ảnh đại diện (Feature Image)</label>
+                                <div class="image-upload-box" id="post-thumbnail">
+                                    <i class='bx bx-cloud-upload'></i>
+                                    <p>Kéo thả ảnh hoặc click để tải lên</p>
+                                </div>
+                                
+                                <label style="display: block; margin: 20px 0 8px; font-weight: 500;">Tags</label>
+                                <input name="basic" class="custom-input tagify-input" value="Quản lý, Giáo dục">
+                                
+                                <label style="display: block; margin: 20px 0 8px; font-weight: 500;">Trạng thái</label>
+                                <select class="custom-input">
+                                    <option>Đã xuất bản</option>
+                                    <option>Bản nháp</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tags Management View -->
+                <div id="view-tags" class="view-section">
+                    <div class="card">
+                        <h3 class="card-title">Quản lý Tags</h3>
+                        <div class="form-row">
+                            <div class="form-col" style="flex: 1;">
+                                <label style="display: block; margin-bottom: 8px; font-weight: 500;">Tên Tag mới</label>
+                                <input type="text" class="custom-input" placeholder="Nhập tên tag...">
+                                <button class="btn btn-primary" style="margin-top: 15px;">Thêm Tag</button>
+                            </div>
+                            <div class="form-col" style="flex: 2;">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Tên Tag</th>
+                                            <th>Slug</th>
+                                            <th>Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Quản lý</td>
+                                            <td>quan-ly</td>
+                                            <td class="actions">
+                                                <button class="action-btn delete"><i class='bx bx-trash'></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Giáo dục</td>
+                                            <td>giao-duc</td>
+                                            <td class="actions">
+                                                <button class="action-btn delete"><i class='bx bx-trash'></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings / SEO View -->
+                <div id="view-settings" class="view-section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Cấu hình Web (Metadata & SEO)</h3>
+                            <button class="btn btn-primary">Lưu cấu hình</button>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label style="display: block; margin-bottom: 8px; font-weight: 500;">Tên Site (Site Title)</label>
+                                <input type="text" class="custom-input" value="Easy4School" placeholder="Easy4School">
+                                
+                                <label style="display: block; margin: 20px 0 8px; font-weight: 500;">Mô tả chung (Meta Description)</label>
+                                <textarea class="custom-input">Phần mềm quản lý trường học tinh gọn và hiệu quả nhất.</textarea>
+                                
+                                <label style="display: block; margin: 20px 0 8px; font-weight: 500;">Từ khóa (Meta Keywords)</label>
+                                <input class="custom-input tagify-keywords" value="easy4school, quan ly truong hoc, blog">
+                            </div>
+                            <div class="form-col">
+                                <label style="display: block; margin-bottom: 8px; font-weight: 500;">Logo Website</label>
+                                <div class="image-upload-box" style="padding: 20px;">
+                                    <img src="../img/logo.png" style="max-height: 60px; margin-bottom: 15px;" alt="Logo" onerror="this.style.display='none'">
+                                    <div><i class='bx bx-upload'></i> Tải logo mới lên</div>
+                                </div>
+                                
+                                <label style="display: block; margin: 20px 0 8px; font-weight: 500;">Favicon Icon</label>
+                                <div class="image-upload-box" style="padding: 20px;">
+                                    <img src="../img/favicon.ico" style="max-height: 48px; margin-bottom: 15px;" alt="Favicon" onerror="this.style.display='none'">
+                                    <div><i class='bx bx-upload'></i> Tải favicon mới lên</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
