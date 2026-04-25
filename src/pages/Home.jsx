@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import '../assets/style.css';
 import { supabase } from '../lib/supabaseClient';
 import { initializeHomeCharts } from '../lib/chartjsSetup';
@@ -373,7 +374,7 @@ export default function Home() {
                 <div className="blog-content">
                     <h3>{post.title}</h3>
                     <p>{post.excerpt || post.meta_description || 'Xem chi tiết bài viết...'}</p>
-                    <a href={`/blog/${post.slug}`} className="read-more">Xem thêm</a>
+                    <Link to={`/blog/${post.slug}`} className="read-more">Xem thêm</Link>
                 </div>
             </article>
         )) : (
