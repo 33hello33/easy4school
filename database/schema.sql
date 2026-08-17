@@ -9,6 +9,10 @@ CREATE TABLE users (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Insert Default Admin User
+INSERT INTO users (username, password) VALUES
+('admin', '123456');
+
 -- Site Settings Table (SEO, Logo, Favicon)
 CREATE TABLE site_settings (
     id SERIAL PRIMARY KEY,
@@ -24,7 +28,14 @@ INSERT INTO site_settings (setting_key, setting_value) VALUES
 ('site_description', 'Mô tả trang web chuẩn SEO của bạn'),
 ('meta_keywords', 'easy4school, quan ly truong hoc, blog'),
 ('logo_url', '/img/logo.png'),
-('favicon_url', '/img/favicon.ico');
+('favicon_url', '/img/favicon.ico'),
+-- Homepage dynamic content (managed via Admin > Nội dung Trang chủ)
+('hero_heading', 'Giải Pháp Quản Lý Trường Học'),
+('hero_subheading', 'Thông Minh & Tiết Kiệm'),
+('hero_description', 'Giúp chủ trường Mầm non, Trung tâm Anh ngữ tối ưu vận hành, tăng hiệu quả quản lý với chi phí thấp nhất thị trường.'),
+('carousel_items', '[]'),   -- JSON array: [{id, src, caption}]
+('partner_logos', '[]');    -- JSON array: [{id, src, name}]
+
 
 -- Tags Table
 CREATE TABLE tags (

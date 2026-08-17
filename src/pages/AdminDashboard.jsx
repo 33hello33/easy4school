@@ -112,6 +112,26 @@ export default function AdminDashboard() {
         chartData: []
     });
 
+    // ===== HOMEPAGE CONTENT STATES =====
+    const [heroHeading, setHeroHeading] = useState('Giải Pháp Quản Lý Trường Học');
+    const [heroSubheading, setHeroSubheading] = useState('Thông Minh & Tiết Kiệm');
+    const [heroDescription, setHeroDescription] = useState('Giúp chủ trường Mầm non, Trung tâm Anh ngữ tối ưu vận hành, tăng hiệu quả quản lý với chi phí thấp nhất thị trường.');
+    const [heroSaving, setHeroSaving] = useState(false);
+
+    // Carousel States
+    const [carouselItems, setCarouselItems] = useState([]);
+    const [newCarouselImg, setNewCarouselImg] = useState(null);
+    const [newCarouselCaption, setNewCarouselCaption] = useState('');
+    const [carouselSaving, setCarouselSaving] = useState(false);
+
+    // Partner Logos States
+    const [partnerLogos, setPartnerLogos] = useState([]);
+    const [newPartnerImg, setNewPartnerImg] = useState(null);
+    const [newPartnerName, setNewPartnerName] = useState('');
+    const [partnerSaving, setPartnerSaving] = useState(false);
+    const [partnerInputMode, setPartnerInputMode] = useState('file'); // 'file' | 'url'
+    const [newPartnerUrl, setNewPartnerUrl] = useState('');
+
     const fetchPosts = async () => {
         try {
             const { data, error } = await supabase
@@ -204,6 +224,175 @@ export default function AdminDashboard() {
         }
     };
 
+    // ===== HOMEPAGE FETCH FUNCTIONS =====
+    const fetchHeroContent = async () => {
+        try {
+            const { data } = await supabase.from('site_settings').select('setting_key, setting_value')
+                .in('setting_key', ['hero_heading', 'hero_subheading', 'hero_description']);
+            if (data) {
+                data.forEach(item => {
+                    if (item.setting_key === 'hero_heading') setHeroHeading(item.setting_value || 'Giải Pháp Quản Lý Trường Học');
+                    if (item.setting_key === 'hero_subheading') setHeroSubheading(item.setting_value || 'Thông Minh & Tiết Kiệm');
+                    if (item.setting_key === 'hero_description') setHeroDescription(item.setting_value || '');
+                });
+            }
+        } catch(e) { console.error(e); }
+    };
+
+    const fetchCarouselItems = async () => {
+        try {
+            const { data } = await supabase.from('site_settings').select('setting_value')
+                .eq('setting_key', 'carousel_items').single();
+            if (data && data.setting_value) {
+                setCarouselItems(JSON.parse(data.setting_value));
+            } else {
+                // Defaults
+                setCarouselItems([
+                    { id: 1, src: '/img/tongquan.jpg', caption: 'Quản lý trung tâm cực kỳ đơn giản' },
+                    { id: 2, src: '/img/xuathd.jpg', caption: 'Xuất hóa đơn dễ dàng theo tháng hoặc buổi học' },
+                    { id: 3, src: '/img/banhang.jpg', caption: 'Bán hàng dễ dàng cho học sinh' },
+                    { id: 4, src: '/img/quanlythuchi.jpg', caption: 'Quản lý nợ chưa thu, quá hạn đóng tiền' }
+                ]);
+            }
+        } catch(e) { console.error(e); }
+    };
+
+const DEFAULT_PARTNER_LOGOS = [
+    { id: 1, src: '/img/logoschool/mamla.png', name: 'Mầm non Lá' },
+    { id: 2, src: '/img/logoschool/eskills.png', name: 'Eskills' },
+    { id: 3, src: '/img/logoschool/baominh.jpg', name: 'Bảo Minh' },
+    { id: 4, src: '/img/logoschool/buoctien.png', name: 'Bước Tiến' },
+    { id: 5, src: '/img/logoschool/seungri.png', name: 'Seungri' },
+    { id: 6, src: '/img/logoschool/mattroibe.jpg', name: 'Mặt Trời Bé' },
+    { id: 7, src: '/img/logoschool/doremi.png', name: 'Doremi' },
+    { id: 8, src: '/img/logoschool/mls.png', name: 'MLS' },
+    { id: 9, src: '/img/logoschool/yesican.png', name: 'Yes I Can' },
+    { id: 10, src: '/img/logoschool/phongle.jpg', name: 'Phong Lê' },
+    { id: 11, src: '/img/logoschool/jcam.png', name: 'JC Cambridge' },
+    { id: 12, src: '/img/logoschool/mathfriends.jpg', name: 'Math Friends' },
+    { id: 13, src: '/img/logoschool/tkstudio.jpg', name: 'TK Studio' },
+    { id: 14, src: '/img/logoschool/allez.png', name: 'Allez Sport' },
+    { id: 15, src: '/img/logoschool/amber.jpg', name: 'Amber' },
+    { id: 16, src: '/img/logoschool/hochai.png', name: 'Học Hải' },
+    { id: 17, src: '/img/logoschool/hcenter.png', name: 'Hcenter' },
+    { id: 18, src: '/img/logoschool/icandoit.png', name: 'I Can Do It' },
+    { id: 19, src: '/img/logoschool/maihieu.png', name: 'Mai Hiếu' },
+    { id: 20, src: '/img/logoschool/collins.png', name: 'Collins' },
+    { id: 21, src: '/img/logoschool/smile-center.png', name: 'Smile Center' },
+    { id: 22, src: '/img/logoschool/anhbinhminh.png', name: 'Ánh Bình Minh' },
+    { id: 23, src: '/img/logoschool/newstar.png', name: 'New Star' },
+    { id: 24, src: '/img/logoschool/tuoihong.png', name: 'Tuổi Hồng' },
+    { id: 25, src: '/img/logoschool/cophuong.png', name: 'Cô Phượng' },
+    { id: 26, src: '/img/logoschool/camvan.jpg', name: 'Cam Vân' },
+    { id: 27, src: '/img/logoschool/thanhdat.jpg', name: 'Thành Đạt' },
+];
+
+    const fetchPartnerLogos = async () => {
+        try {
+            const { data } = await supabase.from('site_settings').select('setting_value')
+                .eq('setting_key', 'partner_logos').single();
+            if (data && data.setting_value) {
+                const parsed = JSON.parse(data.setting_value);
+                setPartnerLogos(parsed.length > 0 ? parsed : DEFAULT_PARTNER_LOGOS);
+            } else {
+                setPartnerLogos(DEFAULT_PARTNER_LOGOS);
+            }
+        } catch(e) { 
+            setPartnerLogos(DEFAULT_PARTNER_LOGOS);
+        }
+    };
+
+    const upsertSetting = async (key, value) => {
+        const { data: existing } = await supabase.from('site_settings').select('id').eq('setting_key', key);
+        if (existing && existing.length > 0) {
+            await supabase.from('site_settings').update({ setting_value: value }).eq('setting_key', key);
+        } else {
+            await supabase.from('site_settings').insert([{ setting_key: key, setting_value: value }]);
+        }
+    };
+
+    const handleSaveHero = async () => {
+        setHeroSaving(true);
+        try {
+            await upsertSetting('hero_heading', heroHeading);
+            await upsertSetting('hero_subheading', heroSubheading);
+            await upsertSetting('hero_description', heroDescription);
+            alert('Đã lưu nội dung Hero thành công!');
+        } catch(e) { alert('Lỗi: ' + e.message); }
+        setHeroSaving(false);
+    };
+
+    const handleNewCarouselImageUpload = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        compressImage(file, (b64) => setNewCarouselImg(b64));
+    };
+
+    const handleAddCarouselItem = async () => {
+        if (!newCarouselImg || !newCarouselCaption) { alert('Vui lòng chọn ảnh và nhập mô tả!'); return; }
+        setCarouselSaving(true);
+        try {
+            const uploadedUrl = await uploadImageToSupabase(newCarouselImg, 'carousel');
+            if (!uploadedUrl) { setCarouselSaving(false); return; }
+            const newItem = { id: Date.now(), src: uploadedUrl, caption: newCarouselCaption };
+            const updated = [...carouselItems, newItem];
+            await upsertSetting('carousel_items', JSON.stringify(updated));
+            setCarouselItems(updated);
+            setNewCarouselImg(null);
+            setNewCarouselCaption('');
+            document.getElementById('carousel-img-input').value = '';
+            alert('Đã thêm ảnh carousel thành công!');
+        } catch(e) { alert('Lỗi: ' + e.message); }
+        setCarouselSaving(false);
+    };
+
+    const handleDeleteCarouselItem = async (id) => {
+        if (!window.confirm('Xóa ảnh này khỏi carousel?')) return;
+        const updated = carouselItems.filter(i => i.id !== id);
+        await upsertSetting('carousel_items', JSON.stringify(updated));
+        setCarouselItems(updated);
+    };
+
+    const handleNewPartnerImageUpload = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        compressImage(file, (b64) => setNewPartnerImg(b64));
+    };
+
+    const handleAddPartner = async () => {
+        const name = newPartnerName.trim();
+        if (!name) { alert('Vui lòng nhập tên trường/trung tâm!'); return; }
+        setPartnerSaving(true);
+        try {
+            let finalSrc = '';
+            if (partnerInputMode === 'url') {
+                if (!newPartnerUrl.trim()) { alert('Vui lòng nhập URL ảnh!'); setPartnerSaving(false); return; }
+                finalSrc = newPartnerUrl.trim();
+            } else {
+                if (!newPartnerImg) { alert('Vui lòng chọn ảnh logo!'); setPartnerSaving(false); return; }
+                finalSrc = await uploadImageToSupabase(newPartnerImg, 'partners');
+                if (!finalSrc) { setPartnerSaving(false); return; }
+            }
+            const newItem = { id: Date.now(), src: finalSrc, name };
+            const updated = [...partnerLogos, newItem];
+            await upsertSetting('partner_logos', JSON.stringify(updated));
+            setPartnerLogos(updated);
+            setNewPartnerImg(null);
+            setNewPartnerName('');
+            setNewPartnerUrl('');
+            if (document.getElementById('partner-img-input')) document.getElementById('partner-img-input').value = '';
+            alert('Đã thêm logo đối tác thành công!');
+        } catch(e) { alert('Lỗi: ' + e.message); }
+        setPartnerSaving(false);
+    };
+
+    const handleDeletePartner = async (id) => {
+        if (!window.confirm('Xóa logo đối tác này?')) return;
+        const updated = partnerLogos.filter(i => i.id !== id);
+        await upsertSetting('partner_logos', JSON.stringify(updated));
+        setPartnerLogos(updated);
+    };
+
     useEffect(() => {
         if (view === 'posts') {
             fetchPosts();
@@ -211,6 +400,10 @@ export default function AdminDashboard() {
             fetchSettings();
         } else if (view === 'statistics') {
             fetchAnalytics();
+        } else if (view === 'homepage') {
+            fetchHeroContent();
+            fetchCarouselItems();
+            fetchPartnerLogos();
         }
     }, [view]);
     // Initialize Quill and Tagify (mocking logic)
@@ -246,9 +439,28 @@ export default function AdminDashboard() {
         }
     }, [view]);
 
+    const [currentUser, setCurrentUser] = useState(() => {
+        try {
+            const stored = sessionStorage.getItem('easy4school_admin_session');
+            return stored ? JSON.parse(stored) : null;
+        } catch(e) { return null; }
+    });
+
+    useEffect(() => {
+        const stored = sessionStorage.getItem('easy4school_admin_session');
+        if (!stored) {
+            navigate('/admin/login');
+        } else {
+            try {
+                setCurrentUser(JSON.parse(stored));
+            } catch(e) {}
+        }
+    }, [navigate]);
+
     // Handle Logout
     const handleLogout = (e) => {
         e.preventDefault();
+        sessionStorage.removeItem('easy4school_admin_session');
         navigate('/admin/login');
     };
 
@@ -447,6 +659,10 @@ export default function AdminDashboard() {
                         <i className='bx bx-news'></i>
                         <span>Bài viết</span>
                     </a>
+                    <a href="#" className={`menu-item ${view === 'homepage' ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); setView('homepage'); }}>
+                        <i className='bx bx-palette'></i>
+                        <span>Nội dung Trang chủ</span>
+                    </a>
                     <a href="#" className={`menu-item ${view === 'tags' ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); setView('tags'); }}>
                         <i className='bx bx-purchase-tag-alt'></i>
                         <span>Tạo Tags</span>
@@ -473,14 +689,17 @@ export default function AdminDashboard() {
                         {view === 'dashboard' && 'Tổng quan'}
                         {view === 'posts' && 'Quản lý Bài viết'}
                         {view === 'editor' && 'Soạn thảo Bài viết'}
+                        {view === 'homepage' && 'Nội dung Trang chủ'}
                         {view === 'tags' && 'Quản lý Tags'}
                         {view === 'statistics' && 'Thống kê truy cập'}
                         {view === 'settings' && 'Cấu hình Web (Metadata & SEO)'}
                     </div>
                     <div className="topbar-right">
                         <div className="admin-profile">
-                            <div className="admin-avatar">A</div>
-                            <span>Admin</span>
+                            <div className="admin-avatar">
+                                {currentUser?.name ? currentUser.name.charAt(0).toUpperCase() : 'A'}
+                            </div>
+                            <span>{currentUser?.name || currentUser?.username || 'Admin'}</span>
                             <i className='bx bx-chevron-down'></i>
                         </div>
                     </div>
@@ -623,6 +842,140 @@ export default function AdminDashboard() {
                                             <option value="draft">Bản nháp</option>
                                         </select>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* ===== HOMEPAGE CONTENT VIEW ===== */}
+                    {view === 'homepage' && (
+                        <div className="view-section active">
+
+                            {/* --- HERO SECTION EDITOR --- */}
+                            <div className="card" style={{marginBottom: '24px'}}>
+                                <div className="card-header">
+                                    <h3 className="card-title">✏️ Nội dung Hero (Màn hình đầu tiên)</h3>
+                                    <button className="btn btn-primary" onClick={handleSaveHero} disabled={heroSaving}>
+                                        {heroSaving ? 'Đang lưu...' : 'Lưu thay đổi'}
+                                    </button>
+                                </div>
+                                <div style={{display:'grid', gap:'16px'}}>
+                                    <div>
+                                        <label style={{display:'block', marginBottom:'8px', fontWeight:'600', fontSize:'14px'}}>Tiêu đề chính (Dòng 1)</label>
+                                        <input type="text" className="custom-input" value={heroHeading} onChange={e => setHeroHeading(e.target.value)} placeholder="Giải Pháp Quản Lý Trường Học" />
+                                        <small style={{color:'#888', marginTop:'4px', display:'block'}}>Hiển thị trên đầu trang chủ màu đen</small>
+                                    </div>
+                                    <div>
+                                        <label style={{display:'block', marginBottom:'8px', fontWeight:'600', fontSize:'14px'}}>Tiêu đề phụ (Dòng 2 – màu gradient)</label>
+                                        <input type="text" className="custom-input" value={heroSubheading} onChange={e => setHeroSubheading(e.target.value)} placeholder="Thông Minh & Tiết Kiệm" />
+                                    </div>
+                                    <div>
+                                        <label style={{display:'block', marginBottom:'8px', fontWeight:'600', fontSize:'14px'}}>Đoạn mô tả ngắn</label>
+                                        <textarea className="custom-input" rows={3} value={heroDescription} onChange={e => setHeroDescription(e.target.value)} placeholder="Mô tả ngắn gọn về giải pháp..." />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* --- CAROUSEL IMAGES EDITOR --- */}
+                            <div className="card" style={{marginBottom: '24px'}}>
+                                <div className="card-header">
+                                    <h3 className="card-title">🖼️ Hình ảnh Giao diện thực tế (Carousel)</h3>
+                                </div>
+                                <p style={{color:'#666', marginBottom:'16px', fontSize:'14px'}}>Tải lên các ảnh screenshot giao diện phần mềm để hiển thị trong section "Xem giao diện thực tế".</p>
+
+                                {/* Existing items */}
+                                <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(220px, 1fr))', gap:'12px', marginBottom:'24px'}}>
+                                    {carouselItems.map(item => (
+                                        <div key={item.id} style={{border:'1px solid #e2e8f0', borderRadius:'12px', overflow:'hidden', background:'#f8fafc'}}>
+                                            <img src={item.src} alt={item.caption} style={{width:'100%', height:'140px', objectFit:'cover', display:'block'}} />
+                                            <div style={{padding:'10px'}}>
+                                                <p style={{fontSize:'13px', color:'#334155', marginBottom:'8px', fontWeight:'500'}}>{item.caption}</p>
+                                                <button
+                                                    onClick={() => handleDeleteCarouselItem(item.id)}
+                                                    style={{background:'#fee2e2', color:'#dc2626', border:'none', borderRadius:'6px', padding:'4px 10px', fontSize:'12px', cursor:'pointer', fontWeight:'600'}}
+                                                >🗑️ Xóa</button>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* Add new */}
+                                <div style={{background:'#f0f4ff', borderRadius:'12px', padding:'20px', border:'2px dashed #c7d2fe'}}>
+                                    <h4 style={{marginBottom:'16px', color:'#4f46e5', fontSize:'14px', fontWeight:'700'}}>+ Thêm ảnh mới vào Carousel</h4>
+                                    <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'16px', alignItems:'end'}}>
+                                        <div>
+                                            <label style={{display:'block', marginBottom:'8px', fontWeight:'600', fontSize:'13px'}}>Chọn ảnh</label>
+                                            <input id="carousel-img-input" type="file" accept="image/*" className="custom-input" onChange={handleNewCarouselImageUpload} style={{padding:'6px'}} />
+                                            {newCarouselImg && <img src={newCarouselImg} alt="preview" style={{marginTop:'8px', height:'80px', borderRadius:'6px', objectFit:'cover'}} />}
+                                        </div>
+                                        <div>
+                                            <label style={{display:'block', marginBottom:'8px', fontWeight:'600', fontSize:'13px'}}>Mô tả ảnh (hiển thị bên dưới)</label>
+                                            <input type="text" className="custom-input" value={newCarouselCaption} onChange={e => setNewCarouselCaption(e.target.value)} placeholder="VD: Quản lý học viên dễ dàng" />
+                                        </div>
+                                    </div>
+                                    <button className="btn btn-primary" style={{marginTop:'16px'}} onClick={handleAddCarouselItem} disabled={carouselSaving}>
+                                        {carouselSaving ? 'Đang tải lên...' : '+ Thêm vào Carousel'}
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* --- PARTNER LOGOS EDITOR --- */}
+                            <div className="card">
+                                <div className="card-header">
+                                    <h3 className="card-title">🏫 Logo Đối tác (Trường hợp tác)</h3>
+                                </div>
+                                <p style={{color:'#666', marginBottom:'16px', fontSize:'14px'}}>Quản lý danh sách logo trường/trung tâm chạy trong thanh marquee.</p>
+
+                                {/* Existing partners */}
+                                <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(160px, 1fr))', gap:'12px', marginBottom:'24px'}}>
+                                    {partnerLogos.map(item => (
+                                        <div key={item.id} style={{border:'1px solid #e2e8f0', borderRadius:'12px', padding:'12px', background:'white', textAlign:'center'}}>
+                                            <img src={item.src} alt={item.name} style={{height:'60px', objectFit:'contain', display:'block', margin:'0 auto 8px'}} />
+                                            <p style={{fontSize:'12px', color:'#475569', fontWeight:'600', marginBottom:'8px'}}>{item.name}</p>
+                                            <button
+                                                onClick={() => handleDeletePartner(item.id)}
+                                                style={{background:'#fee2e2', color:'#dc2626', border:'none', borderRadius:'6px', padding:'3px 8px', fontSize:'11px', cursor:'pointer', fontWeight:'600'}}
+                                            >🗑️ Xóa</button>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* Add new partner */}
+                                <div style={{background:'#f0fdf4', borderRadius:'12px', padding:'20px', border:'2px dashed #86efac'}}>
+                                    <h4 style={{marginBottom:'16px', color:'#16a34a', fontSize:'14px', fontWeight:'700'}}>+ Thêm logo đối tác mới</h4>
+                                    <div style={{marginBottom:'12px'}}>
+                                        <label style={{fontWeight:'600', fontSize:'13px', marginRight:'16px'}}>Cách thêm logo:</label>
+                                        <label style={{marginRight:'12px', cursor:'pointer'}}>
+                                            <input type="radio" name="partnerMode" checked={partnerInputMode==='file'} onChange={() => setPartnerInputMode('file')} /> Tải file ảnh lên
+                                        </label>
+                                        <label style={{cursor:'pointer'}}>
+                                            <input type="radio" name="partnerMode" checked={partnerInputMode==='url'} onChange={() => setPartnerInputMode('url')} /> Dùng URL ảnh
+                                        </label>
+                                    </div>
+                                    <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'16px', alignItems:'end'}}>
+                                        <div>
+                                            {partnerInputMode === 'file' ? (
+                                                <>
+                                                    <label style={{display:'block', marginBottom:'8px', fontWeight:'600', fontSize:'13px'}}>Chọn file logo</label>
+                                                    <input id="partner-img-input" type="file" accept="image/*" className="custom-input" onChange={handleNewPartnerImageUpload} style={{padding:'6px'}} />
+                                                    {newPartnerImg && <img src={newPartnerImg} alt="preview" style={{marginTop:'8px', height:'60px', objectFit:'contain'}} />}
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <label style={{display:'block', marginBottom:'8px', fontWeight:'600', fontSize:'13px'}}>URL ảnh logo</label>
+                                                    <input type="url" className="custom-input" value={newPartnerUrl} onChange={e => setNewPartnerUrl(e.target.value)} placeholder="https://example.com/logo.png" />
+                                                    {newPartnerUrl && <img src={newPartnerUrl} alt="preview" style={{marginTop:'8px', height:'60px', objectFit:'contain'}} onError={e => e.target.style.display='none'} />}
+                                                </>
+                                            )}
+                                        </div>
+                                        <div>
+                                            <label style={{display:'block', marginBottom:'8px', fontWeight:'600', fontSize:'13px'}}>Tên trường / Trung tâm</label>
+                                            <input type="text" className="custom-input" value={newPartnerName} onChange={e => setNewPartnerName(e.target.value)} placeholder="VD: Trung tâm Ánh Minh" />
+                                        </div>
+                                    </div>
+                                    <button className="btn btn-primary" style={{marginTop:'16px', background:'linear-gradient(135deg,#16a34a,#22c55e)', boxShadow:'none'}} onClick={handleAddPartner} disabled={partnerSaving}>
+                                        {partnerSaving ? 'Đang lưu...' : '+ Thêm Logo Đối Tác'}
+                                    </button>
                                 </div>
                             </div>
                         </div>
