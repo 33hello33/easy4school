@@ -50,6 +50,18 @@ export default function Home() {
     const [heroDescription, setHeroDescription] = useState('Giúp chủ trường Mầm non, Trung tâm Anh ngữ tối ưu vận hành, tăng hiệu quả quản lý với chi phí thấp nhất thị trường.');
     const [carouselItems, setCarouselItems] = useState(DEFAULT_CAROUSEL);
     const [partnerLogos, setPartnerLogos] = useState(DEFAULT_PARTNERS);
+    const [previewIndex, setPreviewIndex] = useState(null);
+
+    useEffect(() => {
+        if (previewIndex === null) return;
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape') setPreviewIndex(null);
+            if (e.key === 'ArrowRight') setPreviewIndex((prev) => (prev !== null ? (prev + 1) % carouselItems.length : null));
+            if (e.key === 'ArrowLeft') setPreviewIndex((prev) => (prev !== null ? (prev - 1 + carouselItems.length) % carouselItems.length : null));
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [previewIndex, carouselItems.length]);
 
     useEffect(() => {
         const fetchAll = async () => {
@@ -287,13 +299,22 @@ export default function Home() {
 
                 {/* Carousel */}
                 <div className="carousel-wrapper">
-                    <div className="carousel-label">📸 Xem giao diện thực tế</div>
+                    <div className="carousel-label">📸 Xem giao diện thực tế (Click vào ảnh để phóng to)</div>
                     <div className="carousel-container">
                         <div className="carousel-track">
                             {[...carouselItems, ...carouselItems].map((item, idx) => (
-                                <div key={`${item.id}-${idx}`} className="carousel-item-card">
+                                <div
+                                    key={`${item.id}-${idx}`}
+                                    className="carousel-item-card"
+                                    onClick={() => setPreviewIndex(idx % carouselItems.length)}
+                                    title="Click để phóng to ảnh"
+                                >
                                     <div className="image-wrapper">
                                         <img src={item.src} className="img-main" alt={item.caption || 'Giao diện phần mềm'} />
+                                        <div className="zoom-overlay">
+                                            <i className="fas fa-search-plus"></i>
+                                            <span>Phóng to</span>
+                                        </div>
                                     </div>
                                     <div className="slide-caption">{item.caption}</div>
                                 </div>
@@ -452,7 +473,7 @@ export default function Home() {
             <section className="section partners-section" id="partners">
                 <div className="text-center" style={{ marginBottom: '3rem' }}>
                     <div className="partners-badge">🏫 Đối tác tin dùng</div>
-                    <h2 className="partners-title">Hơn <span className="partners-count">{partnerLogos.length}+</span> Trường học &amp; Trung tâm</h2>
+                    <h2 className="partners-title">Hơn <span className="partners-count">100+</span> Trường học &amp; Trung tâm</h2>
                     <p className="partners-subtitle">Được các trường hàng đầu tin tưởng lựa chọn trên toàn quốc</p>
                 </div>
                 <div className="partner-marquee-wrapper">
@@ -591,6 +612,48 @@ export default function Home() {
             <a href="https://zalo.me/0878771668" className="zalo-float" target="_blank" rel="noreferrer" title="Chat Zalo">
                 <i className="fab fa-whatsapp"></i>
             </a>
+
+            {/* Image Lightbox Modal */}
+            {previewIndex !== null && carouselItems[previewIndex] && (
+                <div className="lightbox-modal-backdrop" onClick={() => setPreviewIndex(null)}>
+                    <div className="lightbox-modal-container" onClick={(e) => e.stopPropagation()}>
+                        <button className="lightbox-close-btn" onClick={() => setPreviewIndex(null)} title="Đóng (Esc)">
+                            <i className="fas fa-times"></i>
+                        </button>
+                        {carouselItems.length > 1 && (
+                            <>
+                                <button
+                                    className="lightbox-nav-btn lightbox-prev-btn"
+                                    onClick={() => setPreviewIndex((previewIndex - 1 + carouselItems.length) % carouselItems.length)}
+                                    title="Ảnh trước (Mũi tên trái)"
+                                >
+                                    <i className="fas fa-chevron-left"></i>
+                                </button>
+                                <button
+                                    className="lightbox-nav-btn lightbox-next-btn"
+                                    onClick={() => setPreviewIndex((previewIndex + 1) % carouselItems.length)}
+                                    title="Ảnh tiếp theo (Mũi tên phải)"
+                                >
+                                    <i className="fas fa-chevron-right"></i>
+                                </button>
+                            </>
+                        )}
+                        <div className="lightbox-image-box">
+                            <img
+                                src={carouselItems[previewIndex].src}
+                                alt={carouselItems[previewIndex].caption || 'Giao diện thực tế'}
+                                className="lightbox-img"
+                            />
+                        </div>
+                        {carouselItems[previewIndex].caption && (
+                            <div className="lightbox-caption-bar">
+                                <span className="lightbox-caption-text">{carouselItems[previewIndex].caption}</span>
+                                <span className="lightbox-counter-badge">{previewIndex + 1} / {carouselItems.length}</span>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            )}
         </>
     );
 }

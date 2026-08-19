@@ -607,6 +607,169 @@ header.header-scrolled {
     }
 }
 
+.carousel-item-card {
+    cursor: pointer;
+}
+
+.carousel-item-card .zoom-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.45);
+    backdrop-filter: blur(3px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.carousel-item-card:hover .zoom-overlay {
+    opacity: 1;
+}
+
+.carousel-item-card:hover .zoom-overlay i {
+    transform: scale(1.15);
+    transition: transform 0.3s ease;
+}
+
+/* Lightbox Modal */
+.lightbox-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    animation: fadeInModal 0.25s ease-out forwards;
+}
+
+.lightbox-modal-container {
+    position: relative;
+    max-width: 92vw;
+    max-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: scaleInModal 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.lightbox-image-box {
+    max-width: 90vw;
+    max-height: 80vh;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6);
+    background: #0f172a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-img {
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+    display: block;
+    border-radius: 12px;
+}
+
+.lightbox-caption-bar {
+    margin-top: 16px;
+    color: #ffffff;
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 10px 24px;
+    border-radius: 40px;
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.lightbox-counter-badge {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.75);
+    border-left: 1px solid rgba(255, 255, 255, 0.25);
+    padding-left: 12px;
+    font-weight: 500;
+}
+
+.lightbox-close-btn {
+    position: absolute;
+    top: -50px;
+    right: 0;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.lightbox-close-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(1.1);
+}
+
+.lightbox-nav-btn {
+    position: absolute;
+    top: 45%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    font-size: 1.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+.lightbox-nav-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.lightbox-prev-btn {
+    left: -70px;
+}
+
+.lightbox-next-btn {
+    right: -70px;
+}
+
+@keyframes fadeInModal {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scaleInModal {
+    from { transform: scale(0.92); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
 @media (max-width: 768px) {
     .carousel-item-card {
         flex: 0 0 320px;
@@ -614,6 +777,11 @@ header.header-scrolled {
     .carousel-item-card .image-wrapper {
         height: 200px;
     }
+    .lightbox-prev-btn { left: 8px; }
+    .lightbox-next-btn { right: 8px; }
+    .lightbox-nav-btn { background: rgba(0, 0, 0, 0.6); width: 40px; height: 40px; }
+    .lightbox-close-btn { top: 8px; right: 8px; background: rgba(0, 0, 0, 0.6); }
+    .lightbox-image-box { max-height: 70vh; }
 }
 
 /* ===== REPORTS SECTION ===== */
